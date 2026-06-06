@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Nuwara Eliya",
+    "rating": null,
+    "description": "Nuwara Eliya is Sri Lanka's highest town and a favourite hill station during British colonial times. The town is still touted as Little England, an illusion maintained by the presence of the Nuwara Eliya Golf Club, a racecourse, the Victoria Park and excellent trout fishing in nearby lakes and rivers.",
+    "tag": "Hill Station",
+    "img": "/assets/nuwara-eliya.jpg",
+    "badge": null,
+    "badgeColor": null
+  },
+  {
+    "id": 2,
+    "name": "Mirissa",
+    "rating": null,
+    "description": "Mirissa in Sri Lanka is a stunning beach destination, ideal for relaxing in a hammock with a fresh coconut. Its clear blue waters are rich with marine life, including turtles and majestic blue whales.",
+    "tag": "Beach",
+    "img": "/assets/mirissa-beach.jpg",
+    "badge": null,
+    "badgeColor": null
+  },
+  {
+    "id": 3,
+    "name": "Galle",
+    "rating": null,
+    "description": "Strolling through Galle's cobbled streets reveals a unique blend of its colonial past mixed with South Asian influences. In any narrow lane, you'll find white Buddha statues, ancient relics, and shops selling Ceylon tea alongside whitewashed walls, stylish boutiques, and trendy cafes.",
+    "tag": "Cultural",
+    "img": "/assets/galle.jpg",
+    "badge": null,
+    "badgeColor": null
+  },
+  {
+    "id": 4,
+    "name": "Ella",
+    "rating": null,
+    "description": "Ella is one of those unforgettable places that captivates you deeply. It is compact enough to explore on foot, yet dramatic enough to leave you breathless: with waterfalls, mist-covered tea fields, and a nine-arch railway bridge that seems made for your camera roll.",
+    "tag": "Adventure",
+    "img": "/assets/ninearch.jpg",
+    "badge": "Trending",
+    "badgeColor": { "bg": "#FEF3C7", "color": "#D97706" }
+  },
+  {
+    "id": 5,
+    "name": "Sigiriya",
+    "rating": null,
+    "description": "Sigiriya Lion Rock is an ancient rock fortress famous for its massive rock column reaching nearly 200 meters in height. It dates back to the reign of King Kasyapa (477–495 AD), who selected this site as his new capital.",
+    "tag": "Heritage",
+    "img": "/assets/sigiriya.jpeg",
+    "badge": "Must Visit",
+    "badgeColor": { "bg": "#FEE2E2", "color": "#DC2626" }
+  },
+  {
+    "id": 6,
+    "name": "Polonnaruwa",
+    "rating": null,
+    "description": "Polonnaruwa became Sri Lanka's second capital following the destruction of Anuradhapura in 993. It features the monumental ruins of the magnificent garden-city created by Parakramabahu I in the 12th century.",
+    "tag": "Heritage",
+    "img": "/assets/polonnaruwa-1.jpg",
+    "badge": null,
+    "badgeColor": null
+  },
+  {
+    "id": 7,
+    "name": "Dambulla",
+    "rating": null,
+    "description": "Dambulla has been a significant pilgrimage site for both Buddhists and Hindus since the 1st century BC. It is a cave temple situated atop a rock mountain at an elevation of 1,118 feet, home to numerous Buddhist monuments and statues. UNESCO designated it as a World Heritage Site in 1991.",
+    "tag": "Cultural",
+    "img": "/assets/dambulla-7.jpg",
+    "badge": "Top Rated",
+    "badgeColor": { "bg": "#D1FAE5", "color": "#059669" }
+  },
+  {
+    "id": 8,
+    "name": "Kandy",
+    "rating": null,
+    "description": "The Temple of the Sacred Tooth Relic in Kandy houses the left tooth of Gautama Buddha and is a major pilgrimage site, recognized as a UNESCO World Heritage Site since 1988. The temple is built in the unique Kandyan architectural style.",
+    "tag": "Cultural",
+    "img": "/assets/kandy.jpg",
+    "badge": "Popular",
+    "badgeColor": { "bg": "#EEF2FF", "color": "#4F46E5" }
+  },
+  {
+    "id": 9,
+    "name": "Unawatuna Beach",
+    "rating": null,
+    "description": "Unawatuna Beach is known for its crescent-shaped bay and shallow waters protected by the Goda Gala Reef. This natural reef barrier makes the beach safe for swimmers and is one of Sri Lanka's few safe sea-swimming spots.",
+    "tag": "Beach",
+    "img": "/assets/unawatuna.jpg",
+    "badge": null,
+    "badgeColor": null
+  },
+  {
+    "id": 10,
+    "name": "Anuradhapura",
+    "rating": null,
+    "description": "The ruins of Anuradhapura are among South Asia's most evocative sights. This vast complex features enormous dagobas, ancient pools, and crumbling temples built over a thousand years of rule in Sri Lanka.",
+    "tag": "Heritage",
+    "img": "/assets/anuradhapura.jpg",
+    "badge": null,
+    "badgeColor": null
+  },
+  {
+    "id": 11,
+    "name": "Trincomalee",
+    "rating": null,
+    "description": "Trincomalee, located in northeastern Sri Lanka, is known for its natural harbor and vast sandy beaches stretching north and south of the city — white sand, palm trees, and warm sea waters ranking among the most beautiful in Sri Lanka.",
+    "tag": "Beach",
+    "img": "/assets/trincomalee.jpg",
+    "badge": null,
+    "badgeColor": null
+  },
+  {
+    "id": 12,
+    "name": "Colombo",
+    "rating": null,
+    "description": "Colombo is a year-round destination, with peak tourist season from December to April when cooler winds and clear blue skies attract more visitors. The city blends modern urban life with colonial heritage and vibrant street culture.",
+    "tag": "City",
+    "img": "/assets/colombo.jpg",
+    "badge": null,
+    "badgeColor": null
+  }
+]

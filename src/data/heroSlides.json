@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "image": "hero/hero-islands.jpg",
+    "title": "Discover Paradise Islands",
+    "subtitle": "Experience the beauty of tropical destinations"
+  },
+  {
+    "id": 2,
+    "image": "hero/hero-mountains.jpg",
+    "title": "Mountain Adventures",
+    "subtitle": "Conquer peaks and create memories"
+  },
+  {
+    "id": 3,
+    "image": "hero/hero-cultural.jpg",
+    "title": "Cultural Explorations",
+    "subtitle": "Immerse yourself in rich traditions"
+  }
+]

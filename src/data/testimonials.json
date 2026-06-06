@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Sarah Mitchell",
+    "location": "New York, USA",
+    "avatar": "SM",
+    "rating": 5,
+    "text": "Absolutely incredible experience! The Bali trip was perfectly organized — our guide knew every hidden gem. Already booked my next trip to Japan!",
+    "tour": "Bali Spiritual Journey"
+  },
+  {
+    "name": "James Thornton",
+    "location": "London, UK",
+    "avatar": "JT",
+    "rating": 5,
+    "text": "The Paris Explorer package was worth every penny. Hotels were beautiful, skip-the-line tickets saved us hours, and the local guide was brilliant. 10/10!",
+    "tour": "Paris City Explorer"
+  },
+  {
+    "name": "Priya Sharma",
+    "location": "Mumbai, India",
+    "avatar": "PS",
+    "rating": 5,
+    "text": "Our family trip to Switzerland was flawless. Kids loved it, parents loved it. The team handled everything — we just focused on making memories.",
+    "tour": "Swiss Alps Adventure"
+  }
+]

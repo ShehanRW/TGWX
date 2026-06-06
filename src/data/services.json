@@ -1,0 +1,32 @@
+[
+  {
+    "icon": "Map",
+    "title": "Custom Itineraries",
+    "desc": "Personalized travel plans crafted by expert travel designers just for you."
+  },
+  {
+    "icon": "Hotel",
+    "title": "Handpicked Hotels",
+    "desc": "Only the best-reviewed, verified accommodations make our list."
+  },
+  {
+    "icon": "Backpack",
+    "title": "Guided Tours",
+    "desc": "Small-group and private tours with passionate local experts."
+  },
+  {
+    "icon": "Plane",
+    "title": "Airport Pickup And Dropoff",
+    "desc": "Reliable and comfortable airport transfers with professional drivers, ensuring a smooth start and end to your journey."
+  },
+  {
+    "icon": "ShieldCheck",
+    "title": "Travel Pickups",
+    "desc": "Comfortable and reliable transport services for all your travel needs, ensuring safe and hassle-free journeys throughout your trip."
+  },
+  {
+    "icon": "PhoneCall",
+    "title": "24/7 Support",
+    "desc": "Our team is always just a call away, wherever you are in the world."
+  }
+]
