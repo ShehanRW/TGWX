@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useScroll } from '../../hooks/useScroll';
 import { Link, useNavigate } from 'react-router-dom';
+import logo from '../../assets/logo.png';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,18 +29,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-[0_1px_0_#E5E7EB] py-2 font-sans">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-[0_1px_0_#E5E7EB] py-4 font-sans">
       <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-14">
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5 no-underline flex-shrink-0">
-            <div className="w-9 h-9 bg-primary-500 rounded-xl flex items-center justify-center text-lg shadow-sm">
-              {/* Add your logo icon here if needed */}
-            </div>
-            <span className="text-xl font-extrabold text-primary-500 tracking-tight">
-              Insi Tours
-            </span>
+            <img
+              src={logo}
+              alt="Insi Tours"
+              className="h-25 w-auto object-contain"  // adjust h-9 to h-8 or h-10 to resize
+            />
           </Link>
 
           {/* Desktop nav links */}
