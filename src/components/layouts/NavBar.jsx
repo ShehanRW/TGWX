@@ -36,29 +36,32 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 font-sans transition-all duration-500 ease-in-out ${
         isScrolled
-          ? 'bg-white/80 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-gray-100/80 py-3'
-          : 'bg-white py-5'
-      } ${topBarHidden ? 'top-0' : 'top-9 md:top-9'}`}
+          ? 'bg-white/80 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-gray-100/80 py-2'
+          : 'bg-white border-b border-transparent py-4'
+      } ${topBarHidden ? 'top-0' : 'top-9'}`}
     >
       <div className="w-full px-6 lg:px-12">
-        <div className="flex items-center justify-between h-14">
+        {/* Adjusted to grid / flex structures to guarantee perfect centering */}
+        <div className="flex items-center justify-between h-14 md:grid md:grid-cols-3 md:items-center">
 
-          {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center gap-2.5 no-underline flex-shrink-0 transition-transform duration-300 hover:scale-[1.02]"
-          >
-            <img
-              src={logo}
-              alt="Insi Tours"
-              className={`w-auto object-contain transition-all duration-500 ${
-                isScrolled ? 'h-20' : 'h-25'
-              }`}
-            />
-          </Link>
+          {/* Logo container (Left Grid Cell) */}
+          <div className="flex justify-start">
+            <Link
+              to="/"
+              className="flex items-center gap-2.5 no-underline flex-shrink-0 transition-transform duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src={logo}
+                alt="Insi Tours"
+                className={`w-auto object-contain transition-all duration-500 ${
+                  isScrolled ? 'h-14' : 'h-16'
+                }`}
+              />
+            </Link>
+          </div>
 
-          {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Desktop nav links (Middle Grid Cell - Absolutely Centered) */}
+          <div className="hidden md:flex items-center justify-center gap-1">
             {navLinks.map(link => {
               const active = isActive(link.path);
               return (
@@ -69,14 +72,14 @@ const Navbar = () => {
                              transition-all duration-300 no-underline whitespace-nowrap
                              tracking-wide group
                              ${active
-                               ? 'text-primary-600 bg-primary-50/30'
+                               ? 'text-primary-600 bg-primary-50/40'
                                : 'text-gray-600 hover:text-primary-600 hover:bg-gray-50/50'
                              }`}
                 >
                   {link.name}
                   <span
-                    className={`absolute bottom-1.5 left-4 right-4 h-[1.5px] bg-primary-500
-                                transition-transform duration-300 origin-left
+                    className={`absolute bottom-1 left-4 right-4 h-[2px] bg-primary-500 rounded-full
+                                transition-transform duration-300 origin-center
                                 ${active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
                   />
                 </Link>
@@ -84,14 +87,14 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* Desktop action buttons */}
-          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+          {/* Desktop action buttons (Right Grid Cell) */}
+          <div className="hidden md:flex items-center justify-end gap-3 flex-shrink-0">
             <button
               onClick={handleItineraries}
               className="px-5 py-2.5 rounded-full text-sm font-medium text-gray-700
                          border border-gray-200 bg-white/50 backdrop-blur-sm
                          hover:border-primary-500 hover:text-primary-500 hover:bg-primary-50/30
-                         transition-all duration-300 cursor-pointer tracking-wide active:scale-[0.98]"
+                         transition-all duration-300 cursor-pointer tracking-wide active:scale-[0.97]"
             >
               Itineraries
             </button>
@@ -102,27 +105,30 @@ const Navbar = () => {
                          hover:bg-primary-600 hover:border-primary-600 hover:-translate-y-[1px]
                          shadow-[0_4px_14px_rgba(0,170,108,0.2)] hover:shadow-[0_6px_20px_rgba(0,170,108,0.3)]
                          transition-all duration-300 cursor-pointer flex items-center gap-1.5
-                         tracking-wide active:scale-[0.98]"
+                         tracking-wide active:scale-[0.97]"
             >
               Book a Trip
             </button>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden flex flex-col justify-center items-center gap-[5px] p-2
-                       bg-gray-50/80 backdrop-blur-sm border border-gray-100 cursor-pointer w-10 h-10 rounded-full
-                       hover:bg-gray-100 transition-all duration-200"
-            onClick={() => setIsMobileMenuOpen(p => !p)}
-            aria-label="Toggle navigation menu"
-          >
-            <span className={`block w-5 h-[1.5px] bg-gray-700 rounded-full origin-center transition-all duration-300
-                              ${isMobileMenuOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
-            <span className={`block w-4 h-[1.5px] bg-gray-700 rounded-full transition-all duration-300 self-start ml-2
-                              ${isMobileMenuOpen ? 'opacity-0 scale-x-0' : ''}`} />
-            <span className={`block w-5 h-[1.5px] bg-gray-700 rounded-full origin-center transition-all duration-300
-                              ${isMobileMenuOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`} />
-          </button>
+          {/* Mobile hamburger menu button */}
+          <div className="md:hidden flex items-center">
+            <button
+              className="flex flex-col justify-center items-center gap-[5px] p-2
+                         bg-gray-50/80 backdrop-blur-sm border border-gray-100 cursor-pointer w-10 h-10 rounded-full
+                         hover:bg-gray-100 transition-all duration-200"
+              onClick={() => setIsMobileMenuOpen(p => !p)}
+              aria-label="Toggle navigation menu"
+            >
+              <span className={`block w-5 h-[1.5px] bg-gray-700 rounded-full origin-center transition-all duration-300
+                                ${isMobileMenuOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
+              <span className={`block w-4 h-[1.5px] bg-gray-700 rounded-full transition-all duration-300 self-start ml-2
+                                ${isMobileMenuOpen ? 'opacity-0 scale-x-0' : ''}`} />
+              <span className={`block w-5 h-[1.5px] bg-gray-700 rounded-full origin-center transition-all duration-300
+                                ${isMobileMenuOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`} />
+            </button>
+          </div>
+
         </div>
       </div>
 
