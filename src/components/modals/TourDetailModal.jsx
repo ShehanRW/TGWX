@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X, Heart, ChevronDown, ChevronUp, Check, ArrowRight, Calendar, Users, MapPin } from "lucide-react";
-import Stars from "../Stars";
+import Stars from "../../components/common/Stars";
 
 const difficultyColor = (d) =>
   d === "Easy" ? "bg-green-100 text-green-700"
