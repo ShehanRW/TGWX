@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Tag, Star } from "lucide-react";
 import destinationsData from "../data/destinations.json";
-import DestinationModal from "../components/DestinationModal";
+import DestinationModal from "../components/modals/DestinationModal";
 
 const Stars = ({ rating, size = 14 }) => {
   if (!rating) return null;
