@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { jsPDF } from "jspdf";
 import {
@@ -7,6 +7,7 @@ import {
   Loader, AlertCircle, CheckCircle, ArrowRight, Info,
   Clock, Layers, Shield, Star, Download,
 } from "lucide-react";
+import ITINERARIES from "../data/tours.json";
 
 /* ─────────────────────────────────────────────
    ★  EMAILJS CREDENTIALS  ★
@@ -23,68 +24,12 @@ const EMAILJS_TEMPLATE_ID = "template_97ai673";
 const EMAILJS_PUBLIC_KEY  = "hnMexV2XIaKhzRV6G";
 
 /* ─────────────────────────────────────────────
-   ITINERARIES
-───────────────────────────────────────────── */
-const ITINERARIES = [
-  {
-    id: 1,
-    title: "Cultural Triangle Explorer",
-    days: 7, nights: 6, price: 899,
-    category: "Cultural", difficulty: "Easy",
-    locations: ["Colombo", "Sigiriya", "Dambulla", "Polonnaruwa", "Anuradhapura"],
-    highlights: ["Sigiriya Rock Fortress", "Dambulla Cave Temple", "Polonnaruwa Ruins", "Anuradhapura Sacred City"],
-  },
-  {
-    id: 2,
-    title: "Southern Beach Paradise",
-    days: 8, nights: 7, price: 1099,
-    category: "Beach", difficulty: "Easy",
-    locations: ["Colombo", "Galle", "Unawatuna", "Mirissa", "Yala", "Tangalle"],
-    highlights: ["Mirissa Whale Watching", "Galle Fort", "Unawatuna Beach", "Yala National Park Safari"],
-  },
-  {
-    id: 3,
-    title: "Hill Country Tea Trail",
-    days: 5, nights: 4, price: 649,
-    category: "Nature", difficulty: "Moderate",
-    locations: ["Kandy", "Nuwara Eliya", "Horton Plains", "Ella", "Colombo"],
-    highlights: ["Nuwara Eliya Tea Estates", "Horton Plains & World's End", "Ella Rock Hike", "Nine Arch Bridge"],
-  },
-  {
-    id: 4,
-    title: "Wildlife Safari Adventure",
-    days: 6, nights: 5, price: 849,
-    category: "Adventure", difficulty: "Moderate",
-    locations: ["Colombo", "Udawalawe", "Yala", "Sinharaja", "Galle"],
-    highlights: ["Yala Leopard Safari", "Udawalawe Elephants", "Sinharaja Rainforest", "Bundala Bird Sanctuary"],
-  },
-  {
-    id: 5,
-    title: "Heritage & Temples Deep Dive",
-    days: 9, nights: 8, price: 1249,
-    category: "Cultural", difficulty: "Easy",
-    locations: ["Colombo", "Kelaniya", "Kandy", "Adam's Peak", "Galle"],
-    highlights: ["Kelaniya Temple", "Gadaladeniya Temple", "Embekka Devale", "Adam's Peak Pilgrimage"],
-  },
-  {
-    id: 6,
-    title: "Adventure & Surf Circuit",
-    days: 7, nights: 6, price: 799,
-    category: "Adventure", difficulty: "Challenging",
-    locations: ["Colombo", "Kitulgala", "Knuckles", "Arugam Bay", "Kalpitiya"],
-    highlights: ["Arugam Bay Surfing", "Kitulgala White Water Rafting", "Knuckles Mountain Trek", "Kalpitiya Kite Surfing"],
-  },
-];
-
-/* ─────────────────────────────────────────────
-   VEHICLES
+   VEHICLES — private tours only, priced per day,
+   not per person. Two vehicle types offered.
 ───────────────────────────────────────────── */
 const VEHICLES = [
-  { id: "tuk",  name: "Tuk Tuk",  capacity: "1–2 pax",  icon: "Tuk Tuk", emoji: "🛺", desc: "Fun & authentic Sri Lankan experience for solo or couple travel.", priceNote: "Budget" },
-  { id: "car",  name: "AC Car",   capacity: "1–3 pax",  icon: "AC Car",  emoji: "🚗", desc: "Comfortable air-conditioned sedan for couples or small families.", priceNote: "Standard" },
-  { id: "suv",  name: "AC SUV",   capacity: "1–5 pax",  icon: "AC SUV",  emoji: "🚙", desc: "Spacious SUV, ideal for families or small groups with luggage.", priceNote: "Comfort" },
-  { id: "van",  name: "AC Van",   capacity: "6–10 pax", icon: "AC Van",  emoji: "🚐", desc: "Full-size van for larger groups with ample luggage space.", priceNote: "Group" },
-  { id: "bus",  name: "Minibus",  capacity: "10–20 pax",icon: "Minibus", emoji: "🚌", desc: "Ideal for corporate groups and large tour parties.", priceNote: "Large group" },
+  { id: "car", name: "Car",  capacity: "1–3 pax",  emoji: "🚗", ratePerDay: 65,  desc: "Comfortable air-conditioned sedan for couples or small families." },
+  { id: "van", name: "Van",  capacity: "1–8 pax",  emoji: "🚐", ratePerDay: 110, desc: "Spacious air-conditioned van for larger groups or extra luggage." },
 ];
 
 /* ─────────────────────────────────────────────
@@ -117,6 +62,9 @@ const catColor = (c) => {
   return m[c] || "bg-gray-100 text-gray-600";
 };
 
+/* Total cost is per-vehicle, per-day — independent of pax count within capacity */
+const calcTotal = (itin, vehicle) => itin.days * vehicle.ratePerDay;
+
 const inputBase = (err) =>
   `w-full border rounded-xl px-3.5 py-3 text-sm font-sans outline-none transition-colors duration-150 min-h-[44px]
    ${err ? "border-red-400 bg-red-50 focus:border-red-500" : "border-gray-200 bg-white focus:border-primary-500"}`;
@@ -148,7 +96,7 @@ const generatePDF = (form, itin, vehicle, bookingRef) => {
   try {
     const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
     const pw = doc.internal.pageSize.getWidth(); // 210
-    const total = itin.price * parseInt(form.adults || 1);
+    const total = calcTotal(itin, vehicle);
 
     // ── Header band ──────────────────────────────
     doc.setFillColor(2, 132, 199);
@@ -285,10 +233,10 @@ const generatePDF = (form, itin, vehicle, bookingRef) => {
     doc.setFontSize(9);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(100, 100, 100);
-    doc.text("Estimated Total", 14, y);
+    doc.text(`Tour Cost  (${itin.days} days × $${vehicle.ratePerDay}/day, ${vehicle.name})`, 14, y);
     doc.setFontSize(9);
     doc.setTextColor(140, 140, 140);
-    doc.text("(Final price confirmed by our team)", 14, y + 5);
+    doc.text("Covers transport, guide, sightseeing & activities — accommodation billed separately", 14, y + 5);
 
     doc.setFontSize(22);
     doc.setFont("helvetica", "bold");
@@ -421,7 +369,11 @@ const Step1 = ({ selItin, setSelItin, selVehicle, setSelVehicle, onNext }) => {
                   <div className="flex items-center gap-2 sm:gap-3 mb-2 flex-wrap">
                     <span className="text-xs text-gray-500 flex items-center gap-1"><Clock size={11} strokeWidth={2} />{itin.days}D/{itin.nights}N</span>
                     <span className="text-xs text-gray-500 flex items-center gap-1"><MapPin size={11} strokeWidth={2} />{itin.locations.length} stops</span>
-                    <span className="text-sm font-extrabold text-primary-500 ml-auto">${itin.price}<span className="text-xs font-normal text-gray-400">/pax</span></span>
+                  </div>
+                  <div className="flex items-center gap-3 mb-2 text-xs font-bold text-primary-600">
+                    <span>From ${itin.days * 65} (car)</span>
+                    <span className="text-gray-300">·</span>
+                    <span>${itin.days * 110} (van)</span>
                   </div>
                   <p className="text-xs text-gray-400 mb-2 leading-relaxed">
                     {itin.locations.slice(0, 3).join(" → ")}{itin.locations.length > 3 ? " …" : ""}
@@ -454,8 +406,11 @@ const Step1 = ({ selItin, setSelItin, selVehicle, setSelVehicle, onNext }) => {
       {/* Vehicles */}
       <div className="mb-6 sm:mb-8">
         <h3 className="text-base font-bold text-gray-900 mb-0.5">Choose Your Vehicle</h3>
-        <p className="text-sm text-gray-500 mb-4 sm:mb-5">All private vehicles with experienced drivers. Price discussed on confirmation.</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <p className="text-sm text-gray-500 mb-4 sm:mb-5">
+          Private vehicle with an English-speaking driver-guide. ${VEHICLES[0].ratePerDay}/day for a car, ${VEHICLES[1].ratePerDay}/day for a van
+          {selItin ? ` — ${selItin.days} days for this tour.` : "."}
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {VEHICLES.map(v => {
             const sel = selVehicle?.id === v.id;
             return (
@@ -477,7 +432,9 @@ const Step1 = ({ selItin, setSelItin, selVehicle, setSelVehicle, onNext }) => {
                       </div>
                     </div>
                     <div className="text-xs text-gray-500 leading-relaxed hidden sm:block mb-2">{v.desc}</div>
-                    <span className="inline-block bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full">{v.priceNote}</span>
+                    <span className="inline-block bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full">
+                      ${v.ratePerDay}/day{selItin ? ` · $${calcTotal(selItin, v).toLocaleString()} total` : ""}
+                    </span>
                   </div>
                 </div>
                 <div className="text-xs text-gray-500 leading-relaxed mt-2 sm:hidden">{v.desc}</div>
@@ -637,7 +594,7 @@ const Step2 = ({ form, setForm, onNext, onBack }) => {
    STEP 3 — REVIEW + SUBMIT
 ───────────────────────────────────────────── */
 const Step3 = ({ form, itin, vehicle, onBack, onSubmit, submitting, submitError }) => {
-  const total    = itin.price * parseInt(form.adults || 1);
+  const total    = calcTotal(itin, vehicle);
   const startStr = fmtDate(form.startDate);
   const endStr   = calcEndDate(form.startDate, itin.days);
 
@@ -699,18 +656,18 @@ const Step3 = ({ form, itin, vehicle, onBack, onSubmit, submitting, submitError 
 
       {/* Price */}
       <div className="bg-white border-2 border-primary-100 rounded-2xl p-4 sm:p-5 mb-5">
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Price Estimate</p>
+        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Tour Cost</p>
         <div className="flex justify-between py-1.5 text-sm text-gray-600">
-          <span>${itin.price} × {form.adults} adult{parseInt(form.adults) > 1 ? "s" : ""}</span>
+          <span>${vehicle.ratePerDay}/day × {itin.days} days ({vehicle.name})</span>
           <span className="font-bold text-gray-900">${total.toLocaleString()}</span>
         </div>
         <div className="border-t border-gray-100 mt-2 pt-2.5 flex justify-between items-center">
-          <span className="text-sm font-bold text-gray-900">Estimated Total</span>
+          <span className="text-sm font-bold text-gray-900">Total Tour Cost</span>
           <span className="text-xl font-extrabold text-primary-500">${total.toLocaleString()} <span className="text-xs font-normal text-gray-400">USD</span></span>
         </div>
         <p className="text-xs text-gray-400 mt-2 flex items-start gap-1 leading-relaxed">
           <Info size={11} strokeWidth={2} className="flex-shrink-0 mt-0.5" />
-          Final price confirmed by our team after availability check.
+          Covers private transport, guide, sightseeing & activities. Accommodation, meals, and entrance tickets are quoted separately.
         </p>
       </div>
 
@@ -765,7 +722,7 @@ const Step3 = ({ form, itin, vehicle, onBack, onSubmit, submitting, submitError 
    SUCCESS SCREEN
 ───────────────────────────────────────────── */
 const SuccessScreen = ({ form, itin, vehicle, onReset, bookingRef, pdfStatus, onManualDownload }) => {
-  const total = itin.price * parseInt(form.adults || 1);
+  const total = calcTotal(itin, vehicle);
 
   return (
     <div className="py-6 px-2">
@@ -872,8 +829,8 @@ const SuccessScreen = ({ form, itin, vehicle, onReset, bookingRef, pdfStatus, on
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
-              <div style={{ color: "#6b7280", fontSize: "10px", fontWeight: "700", textTransform: "uppercase" }}>Estimated Total</div>
-              <div style={{ color: "#9ca3af", fontSize: "10px", marginTop: "2px" }}>Final price confirmed by team</div>
+              <div style={{ color: "#6b7280", fontSize: "10px", fontWeight: "700", textTransform: "uppercase" }}>Total Tour Cost</div>
+              <div style={{ color: "#9ca3af", fontSize: "10px", marginTop: "2px" }}>Excl. accommodation & meals</div>
             </div>
             <div style={{ color: "#0284c7", fontSize: "22px", fontWeight: "800" }}>
               ${total.toLocaleString()} <span style={{ fontSize: "11px", color: "#9ca3af", fontWeight: "400" }}>USD</span>
@@ -961,7 +918,7 @@ const Booking = () => {
 
   /* ── Build shared email params ─────────────────── */
   const buildEmailParams = (ref, overrides = {}) => {
-    const total = selItin.price * parseInt(form.adults || 1);
+    const total = calcTotal(selItin, selVehicle);
     return {
       booking_ref:     ref,
       tour_title:      selItin.title,
@@ -983,7 +940,7 @@ const Booking = () => {
       pickup:          form.pickupLocation || "To be confirmed",
       special_requests:form.specialRequests || "None",
       estimated_total: `$${total.toLocaleString()} USD`,
-      price_per_person:`$${selItin.price}`,
+      rate_per_day:    `$${selVehicle.ratePerDay}/day (${selVehicle.name})`,
       submitted_at:    new Date().toLocaleString("en-GB"),
       ...overrides,
     };
@@ -1014,17 +971,17 @@ const Booking = () => {
     setSubmitError(null);
 
     const ref   = generateBookingRef();
-    const total = selItin.price * parseInt(form.adults || 1);
+    const total = calcTotal(selItin, selVehicle);
 
     const bookingData = {
       bookingRef: ref,
       createdAt:  new Date().toISOString(),
       itinerary:  {
         id: selItin.id, title: selItin.title, days: selItin.days, nights: selItin.nights,
-        price: selItin.price, category: selItin.category, difficulty: selItin.difficulty,
+        category: selItin.category, difficulty: selItin.difficulty,
         locations: selItin.locations, highlights: selItin.highlights,
       },
-      vehicle:           { id: selVehicle.id, name: selVehicle.name, capacity: selVehicle.capacity },
+      vehicle:           { id: selVehicle.id, name: selVehicle.name, capacity: selVehicle.capacity, ratePerDay: selVehicle.ratePerDay },
       traveller:         { ...form },
       estimatedTotalUSD: total,
       status:            "pending",
@@ -1080,7 +1037,7 @@ const Booking = () => {
     setPdfStatus("idle");
   };
 
-  const estTotal = selItin && form.adults ? selItin.price * parseInt(form.adults || 1) : null;
+  const estTotal = selItin && selVehicle ? calcTotal(selItin, selVehicle) : null;
 
   return (
     <div className="font-sans bg-white text-gray-900 overflow-x-hidden">
@@ -1194,7 +1151,7 @@ const Booking = () => {
                       </div>
                       {estTotal && (
                         <div className="mt-3 pt-3 border-t border-primary-200 flex justify-between items-center">
-                          <span className="text-xs text-gray-500">Est. Total</span>
+                          <span className="text-xs text-gray-500">Total Cost</span>
                           <span className="text-lg font-extrabold text-primary-600">${estTotal.toLocaleString()}</span>
                         </div>
                       )}

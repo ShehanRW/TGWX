@@ -3,7 +3,7 @@ import {
   Search, Star, Calendar, Users, Heart, Check, MapPin,
   ChevronDown, ChevronUp, X, SlidersHorizontal,
   Grid3X3, List, Compass, Mountain, Waves, Leaf,
-  Camera, Shield, Bus, Utensils, Bed, ArrowRight, Flame
+  Camera, Car, Bus, ArrowRight, Flame, Luggage, UserCheck
 } from "lucide-react";
 import TOURS_DATA from "../data/tours.json";
 
@@ -12,8 +12,14 @@ import TOURS_DATA from "../data/tours.json";
 ───────────────────────────────────────────── */
 const ALL_TOURS = TOURS_DATA;
 
+/* ── Pricing: private tours are quoted per vehicle, per day —
+   not per person. We provide two vehicle types. ── */
+export const VEHICLE_RATES = { car: 65, van: 110 };
+
+const priceFor = (days, vehicleKey) => days * VEHICLE_RATES[vehicleKey];
+
 const CATEGORIES  = ["All", "Cultural", "Beach", "Nature", "Adventure"];
-const DURATIONS   = ["Any", "1–4 Days", "5–7 Days", "8+ Days"];
+const DURATIONS   = ["Any", "1–7 Days", "8–10 Days", "11+ Days"];
 const DIFFICULTIES = ["Any", "Easy", "Moderate", "Challenging"];
 
 /* ── helpers ── */
@@ -33,6 +39,17 @@ const difficultyColor = (d) => {
   return "bg-red-100 text-red-700";
 };
 
+const includeIcon = (inc) => {
+  const map = {
+    Transport:   <Car size={10} strokeWidth={2.5} className="text-primary-500" />,
+    Guide:       <UserCheck size={10} strokeWidth={2.5} className="text-primary-500" />,
+    Sightseeing: <Camera size={10} strokeWidth={2.5} className="text-primary-500" />,
+    Activities:  <Compass size={10} strokeWidth={2.5} className="text-primary-500" />,
+    Luggage:     <Luggage size={10} strokeWidth={2.5} className="text-primary-500" />,
+  };
+  return map[inc] || <Check size={10} strokeWidth={2.5} className="text-primary-500" />;
+};
+
 const Stars = ({ rating, size = 13 }) => (
   <span className="inline-flex gap-px">
     {[1, 2, 3, 4, 5].map(i => (
@@ -40,6 +57,17 @@ const Stars = ({ rating, size = 13 }) => (
         fill={i <= Math.round(rating) ? "#00AA6C" : "#D1D5DB"} />
     ))}
   </span>
+);
+
+/* Price block shared between grid card & row — shows both vehicle options */
+const PriceBlock = ({ days, align = "left" }) => (
+  <div className={align === "right" ? "text-right" : ""}>
+    <div className="text-lg font-extrabold text-primary-500 leading-tight">
+      ${priceFor(days, "car")}
+      <span className="text-xs font-normal text-gray-400"> total (car)</span>
+    </div>
+    <div className="text-xs text-gray-400">${priceFor(days, "van")} total (van)</div>
+  </div>
 );
 
 /* ─────────────────────────────────────────────
@@ -95,30 +123,31 @@ const TourCard = ({ tour, onSelect, wished, onWish }) => (
           <Calendar size={12} strokeWidth={2} /> {tour.days} days
         </span>
         <span className="text-xs text-gray-500 flex items-center gap-1">
-          <Users size={12} strokeWidth={2} /> Max {tour.groupSize}
+          <Users size={12} strokeWidth={2} /> Up to {tour.groupSize}
         </span>
       </div>
       <div className="flex items-center gap-1.5 mb-3">
-        <Stars rating={tour.rating} />
-        <span className="text-xs font-bold text-gray-900">{tour.rating}</span>
-        <span className="text-xs text-gray-400">({tour.reviews})</span>
+        {tour.reviews > 0 ? (
+          <>
+            <Stars rating={tour.rating} />
+            <span className="text-xs font-bold text-gray-900">{tour.rating}</span>
+            <span className="text-xs text-gray-400">({tour.reviews})</span>
+          </>
+        ) : (
+          <span className="bg-primary-50 text-primary-600 text-xs font-bold px-2 py-0.5 rounded-full">New Tour</span>
+        )}
       </div>
       <div className="flex gap-1.5 flex-wrap mb-3.5">
         {tour.includes.map(inc => (
           <span key={inc}
             className="bg-gray-100 text-gray-700 text-xs font-medium px-2 py-0.5 rounded
                        flex items-center gap-1">
-            <Check size={10} strokeWidth={2.5} className="text-primary-500" /> {inc}
+            {includeIcon(inc)} {inc}
           </span>
         ))}
       </div>
       <div className="flex justify-between items-center pt-3.5 border-t border-gray-100">
-        <div>
-          {tour.oldPrice && <div className="text-xs text-gray-400 line-through">${tour.oldPrice}</div>}
-          <div className="text-lg font-extrabold text-primary-500">
-            ${tour.price}<span className="text-xs font-normal text-gray-400">/person</span>
-          </div>
-        </div>
+        <PriceBlock days={tour.days} />
         <button
           className="px-3.5 py-2 rounded-lg text-xs font-semibold text-white
                      bg-primary-500 border-none cursor-pointer
@@ -167,19 +196,20 @@ const TourRow = ({ tour, onSelect, wished, onWish }) => (
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex gap-3.5 flex-wrap items-center">
           <span className="text-xs text-gray-500 flex items-center gap-1"><Calendar size={10} strokeWidth={2} /> {tour.days}D/{tour.nights}N</span>
-          <span className="text-xs text-gray-500 flex items-center gap-1"><Users size={10} strokeWidth={2} /> Max {tour.groupSize}</span>
+          <span className="text-xs text-gray-500 flex items-center gap-1"><Users size={10} strokeWidth={2} /> Up to {tour.groupSize}</span>
           <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${difficultyColor(tour.difficulty)}`}>{tour.difficulty}</span>
-          <div className="flex items-center gap-1">
-            <Stars rating={tour.rating} size={11} />
-            <span className="text-xs font-bold text-gray-800">{tour.rating}</span>
-            <span className="text-xs text-gray-400">({tour.reviews})</span>
-          </div>
+          {tour.reviews > 0 ? (
+            <div className="flex items-center gap-1">
+              <Stars rating={tour.rating} size={11} />
+              <span className="text-xs font-bold text-gray-800">{tour.rating}</span>
+              <span className="text-xs text-gray-400">({tour.reviews})</span>
+            </div>
+          ) : (
+            <span className="bg-primary-50 text-primary-600 text-xs font-bold px-2 py-0.5 rounded-full">New Tour</span>
+          )}
         </div>
         <div className="flex items-center gap-4">
-          <div>
-            {tour.oldPrice && <div className="text-xs text-gray-400 line-through">${tour.oldPrice}</div>}
-            <div className="text-lg font-extrabold text-primary-500">${tour.price}<span className="text-xs font-normal text-gray-400">/person</span></div>
-          </div>
+          <PriceBlock days={tour.days} align="right" />
           <button
             className="px-3.5 py-2 rounded-lg text-xs font-semibold text-white bg-primary-500 border-none cursor-pointer hover:bg-primary-600 transition-colors duration-200"
             onClick={e => { e.stopPropagation(); onSelect(tour); }}
@@ -198,7 +228,6 @@ const TourRow = ({ tour, onSelect, wished, onWish }) => (
 const TourDetail = ({ tour, onClose, wished, onWish }) => {
   const [openDay, setOpenDay] = useState(1);
   const [tab, setTab]         = useState("itinerary");
-  const savings = tour.oldPrice ? tour.oldPrice - tour.price : null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 overflow-y-auto py-8 px-4">
@@ -229,11 +258,15 @@ const TourDetail = ({ tour, onClose, wished, onWish }) => {
               <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${difficultyColor(tour.difficulty)}`}>{tour.difficulty}</span>
             </div>
             <h2 className="text-2xl font-extrabold text-white">{tour.title}</h2>
-            <div className="flex items-center gap-1.5 mt-1">
-              <Stars rating={tour.rating} size={13} />
-              <span className="text-white font-bold text-sm">{tour.rating}</span>
-              <span className="text-white/70 text-xs">({tour.reviews} reviews)</span>
-            </div>
+            {tour.reviews > 0 ? (
+              <div className="flex items-center gap-1.5 mt-1">
+                <Stars rating={tour.rating} size={13} />
+                <span className="text-white font-bold text-sm">{tour.rating}</span>
+                <span className="text-white/70 text-xs">({tour.reviews} reviews)</span>
+              </div>
+            ) : (
+              <span className="inline-block mt-1.5 bg-white/90 text-primary-600 text-xs font-bold px-2.5 py-0.5 rounded-full">New Tour</span>
+            )}
           </div>
         </div>
 
@@ -242,7 +275,7 @@ const TourDetail = ({ tour, onClose, wished, onWish }) => {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
             {[
               { label: "Duration",   val: `${tour.days}D / ${tour.nights}N` },
-              { label: "Group Size", val: `Max ${tour.groupSize}` },
+              { label: "Group Size", val: `Up to ${tour.groupSize}` },
               { label: "Locations",  val: `${tour.locations.length} stops` },
               { label: "Difficulty", val: tour.difficulty },
             ].map(({ label, val }) => (
@@ -325,12 +358,13 @@ const TourDetail = ({ tour, onClose, wished, onWish }) => {
           {tab === "includes" && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
               {[
-                { icon: <Bed size={15} strokeWidth={2} className="text-primary-500" />, label: "Accommodation", desc: "Hand-picked hotels, guesthouses, and eco-lodges." },
-                { icon: <Utensils size={15} strokeWidth={2} className="text-primary-500" />, label: "Meals", desc: "Daily breakfast; most lunches and dinners included." },
-                { icon: <Bus size={15} strokeWidth={2} className="text-primary-500" />, label: "Transport", desc: "All transfers, domestic travel, and airport pick-up." },
-                { icon: <Compass size={15} strokeWidth={2} className="text-primary-500" />, label: "Expert Guide", desc: "English-speaking licensed tour guide throughout." },
-                { icon: <Shield size={15} strokeWidth={2} className="text-primary-500" />, label: "Travel Insurance", desc: "Basic travel and accident insurance included." },
-                { icon: <Camera size={15} strokeWidth={2} className="text-primary-500" />, label: "Entry Tickets", desc: "All monument and national park entry fees covered." },
+                { icon: <Car size={15} strokeWidth={2} className="text-primary-500" />, label: "Private Transport", desc: "Private air-conditioned car or van for the full tour, driven by your guide." },
+                { icon: <UserCheck size={15} strokeWidth={2} className="text-primary-500" />, label: "English-Speaking Guide", desc: "An experienced local guide/chauffeur with you throughout the trip." },
+                { icon: <Camera size={15} strokeWidth={2} className="text-primary-500" />, label: "Sightseeing", desc: "All the sites and stops listed in the day-by-day itinerary." },
+                { icon: <Compass size={15} strokeWidth={2} className="text-primary-500" />, label: "Activities", desc: "Safaris, hikes, village visits, and other included excursions." },
+                ...(tour.includes.includes("Luggage")
+                  ? [{ icon: <Luggage size={15} strokeWidth={2} className="text-primary-500" />, label: "Luggage Handling", desc: "Vehicle sized to comfortably fit your group's luggage." }]
+                  : []),
               ].map(({ icon, label, desc }) => (
                 <div key={label} className="flex gap-3 bg-gray-50 rounded-xl px-4 py-3">
                   <div className="mt-0.5 flex-shrink-0">{icon}</div>
@@ -340,6 +374,9 @@ const TourDetail = ({ tour, onClose, wished, onWish }) => {
                   </div>
                 </div>
               ))}
+              <div className="sm:col-span-2 bg-amber-50 border border-amber-100 rounded-xl px-4 py-3 text-xs text-amber-800 leading-relaxed">
+                Accommodation, meals, and entrance tickets are quoted separately and are not included in the vehicle price shown.
+              </div>
             </div>
           )}
 
@@ -347,20 +384,17 @@ const TourDetail = ({ tour, onClose, wished, onWish }) => {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between
                           gap-4 pt-4 border-t border-gray-100">
             <div>
-              {tour.oldPrice && (
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-400 line-through">${tour.oldPrice}</span>
-                  {savings && (
-                    <span className="bg-red-100 text-red-600 text-xs font-bold px-2 py-0.5 rounded-full">
-                      Save ${savings}
-                    </span>
-                  )}
-                </div>
-              )}
-              <div className="text-2xl font-extrabold text-primary-500">
-                ${tour.price}<span className="text-sm font-normal text-gray-400 ml-1">/ person</span>
+              <div className="flex items-center gap-2 text-sm">
+                <Car size={13} strokeWidth={2} className="text-primary-500" />
+                <span className="font-bold text-gray-900">${priceFor(tour.days, "car")}</span>
+                <span className="text-gray-400 text-xs">total by car</span>
               </div>
-              <div className="text-xs text-gray-400 mt-0.5">All inclusive · Free cancellation 30 days prior</div>
+              <div className="flex items-center gap-2 text-sm mt-0.5">
+                <Bus size={13} strokeWidth={2} className="text-primary-500" />
+                <span className="font-bold text-gray-900">${priceFor(tour.days, "van")}</span>
+                <span className="text-gray-400 text-xs">total by van</span>
+              </div>
+              <div className="text-xs text-gray-400 mt-1">Transport, guide & activities · ${VEHICLE_RATES.car}/day car · ${VEHICLE_RATES.van}/day van</div>
             </div>
             <div className="flex gap-3">
               <button className="px-5 py-2.5 rounded-lg border-2 border-primary-500 text-primary-600 font-semibold
@@ -404,16 +438,16 @@ const Tours = () => {
                !t.locations.some(l => l.toLowerCase().includes(q))) return false;
       if (category !== "All" && t.category !== category) return false;
       if (duration !== "Any") {
-        if (duration === "1–4 Days" && t.days > 4) return false;
-        if (duration === "5–7 Days" && (t.days < 5 || t.days > 7)) return false;
-        if (duration === "8+ Days" && t.days < 8) return false;
+        if (duration === "1–7 Days" && t.days > 7) return false;
+        if (duration === "8–10 Days" && (t.days < 8 || t.days > 10)) return false;
+        if (duration === "11+ Days" && t.days < 11) return false;
       }
       if (difficulty !== "Any" && t.difficulty !== difficulty) return false;
       return true;
     })
     .sort((a, b) => {
-      if (sortBy === "price-asc")  return a.price - b.price;
-      if (sortBy === "price-desc") return b.price - a.price;
+      if (sortBy === "price-asc")  return priceFor(a.days, "car") - priceFor(b.days, "car");
+      if (sortBy === "price-desc") return priceFor(b.days, "car") - priceFor(a.days, "car");
       if (sortBy === "rating")     return b.rating - a.rating;
       if (sortBy === "duration")   return a.days - b.days;
       return b.reviews - a.reviews;
@@ -435,13 +469,13 @@ const Tours = () => {
             <div>
               <span className="bg-red-100 text-red-600 px-3.5 py-1.5 rounded-full text-sm font-semibold
                                flex items-center gap-1.5 w-fit">
-                <Flame size={13} strokeWidth={2} /> Hot Deals
+                <Flame size={13} strokeWidth={2} /> Private Tours
               </span>
               <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 mt-3">
                 Tours & Itineraries
               </h2>
               <p className="text-gray-500 text-base mt-1">
-                Expertly crafted journeys across Sri Lanka
+                Expertly crafted private journeys across Sri Lanka
               </p>
             </div>
 
