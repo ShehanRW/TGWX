@@ -7,6 +7,7 @@ import Tours from './pages/Tours'
 import ContactUs from './pages/ContactUs'
 import Reviews from './pages/Reviews'
 import Booking from './pages/Booking'
+import Gallery from './pages/Gallery'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/gallery" element={<Gallery />} />
         </Routes>
       </div>
     </Router>

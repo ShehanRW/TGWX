@@ -1,7 +1,7 @@
 import servicesData from "../../../data/services.json";
-import { Map, Hotel, Backpack, Plane, ShieldCheck, PhoneCall } from "lucide-react";
+import { Map, CarFront, Backpack, Plane, ShieldCheck, PhoneCall } from "lucide-react";
 
-const iconMap = { Map, Hotel, Backpack, Plane, ShieldCheck, PhoneCall };
+const iconMap = { Map, CarFront, Backpack, Plane, ShieldCheck, PhoneCall };
 
 const ServiceCard = ({ service }) => {
   const Icon = iconMap[service.icon];

@@ -6,6 +6,7 @@ import DestinationsSection from "./sections/DestinationsSection";
 import ToursSection from "./sections/ToursSection";
 import ReviewsSection from "./sections/ReviewsSection";
 import FooterSection from "../../components/layouts/Footer";
+import GuideSection from "./sections/GuideSection";
 
 const Home = () => {
   useScrollAnimation();
@@ -15,6 +16,7 @@ const Home = () => {
       <AnimationStyles />
       
       <HeroSection />
+      <GuideSection />
       <ServicesSection />
       <DestinationsSection />
       <ToursSection />
