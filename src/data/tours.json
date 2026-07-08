@@ -8,8 +8,6 @@
     "days": 10,
     "nights": 9,
     "groupSize": 8,
-    "rating": 0,
-    "reviews": 0,
     "difficulty": "Moderate",
     "img": "/assets/sigiriya.jpeg",
     "highlights": [
@@ -45,8 +43,6 @@
     "days": 8,
     "nights": 7,
     "groupSize": 3,
-    "rating": 0,
-    "reviews": 0,
     "difficulty": "Moderate",
     "img": "/assets/polonnaruwa.jpg",
     "highlights": [
@@ -80,8 +76,6 @@
     "days": 11,
     "nights": 10,
     "groupSize": 4,
-    "rating": 0,
-    "reviews": 0,
     "difficulty": "Moderate",
     "img": "/assets/Ella.jpg",
     "highlights": [
@@ -118,8 +112,6 @@
     "days": 7,
     "nights": 6,
     "groupSize": 8,
-    "rating": 0,
-    "reviews": 0,
     "difficulty": "Easy",
     "img": "/assets/galle.jpg",
     "highlights": [

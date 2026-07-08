@@ -8,6 +8,7 @@ import {
   Clock, Layers, Shield, Star, Download,
 } from "lucide-react";
 import ITINERARIES from "../data/tours.json";
+import TourDetailModal from "../components/modals/TourDetailModal";
 
 /* ─────────────────────────────────────────────
    ★  EMAILJS CREDENTIALS  ★
@@ -332,7 +333,7 @@ const StepIndicator = ({ step }) => {
 /* ─────────────────────────────────────────────
    STEP 1 — ITINERARY + VEHICLE
 ───────────────────────────────────────────── */
-const Step1 = ({ selItin, setSelItin, selVehicle, setSelVehicle, onNext }) => {
+const Step1 = ({ selItin, setSelItin, selVehicle, setSelVehicle, onNext, onViewDetails }) => {
   const [expanded, setExpanded] = useState(null);
   const ok = selItin && selVehicle;
 
@@ -378,12 +379,20 @@ const Step1 = ({ selItin, setSelItin, selVehicle, setSelVehicle, onNext }) => {
                   <p className="text-xs text-gray-400 mb-2 leading-relaxed">
                     {itin.locations.slice(0, 3).join(" → ")}{itin.locations.length > 3 ? " …" : ""}
                   </p>
-                  <button
-                    className="flex items-center gap-1 text-xs text-primary-600 font-semibold border-none bg-transparent cursor-pointer font-sans p-0 min-h-[32px]"
-                    onClick={e => { e.stopPropagation(); setExpanded(exp ? null : itin.id); }}
-                  >
-                    {exp ? <><ChevronUp size={12} strokeWidth={2} />Hide highlights</> : <><ChevronDown size={12} strokeWidth={2} />View highlights</>}
-                  </button>
+                  <div className="flex items-center gap-4 flex-wrap">
+                    <button
+                      className="flex items-center gap-1 text-xs text-primary-600 font-semibold border-none bg-transparent cursor-pointer font-sans p-0 min-h-[32px]"
+                      onClick={e => { e.stopPropagation(); setExpanded(exp ? null : itin.id); }}
+                    >
+                      {exp ? <><ChevronUp size={12} strokeWidth={2} />Hide highlights</> : <><ChevronDown size={12} strokeWidth={2} />View highlights</>}
+                    </button>
+                    <button
+                      className="flex items-center gap-1 text-xs text-gray-500 font-semibold border-none bg-transparent cursor-pointer font-sans p-0 min-h-[32px] hover:text-primary-600"
+                      onClick={e => { e.stopPropagation(); onViewDetails(itin); }}
+                    >
+                      <ArrowRight size={12} strokeWidth={2} /> Full details
+                    </button>
+                  </div>
                   {exp && (
                     <div className="mt-2.5 pt-2.5 border-t border-gray-100 space-y-1">
                       {itin.highlights.map(h => (
@@ -907,6 +916,7 @@ const Booking = () => {
   const [submitError, setSubmitError] = useState(null);
   const [bookingRef,  setBookingRef]  = useState("");
   const [pdfStatus,   setPdfStatus]   = useState("idle"); // idle | generating | done | error
+  const [detailsTour, setDetailsTour] = useState(null);
 
   useEffect(() => {
     emailjs.init(EMAILJS_PUBLIC_KEY);
@@ -1094,6 +1104,7 @@ const Booking = () => {
                         selItin={selItin}     setSelItin={setSelItin}
                         selVehicle={selVehicle} setSelVehicle={setSelVehicle}
                         onNext={() => setStep(2)}
+                        onViewDetails={setDetailsTour}
                       />
                     )}
                     {step === 2 && (
@@ -1192,6 +1203,14 @@ const Booking = () => {
           </div>
         </div>
       </section>
+
+      {/* Full tour details — same modal used on the Tours page */}
+      <TourDetailModal
+        tour={detailsTour}
+        onClose={() => setDetailsTour(null)}
+        wished={false}
+        onWish={() => {}}
+      />
     </div>
   );
 };
