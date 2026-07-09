@@ -298,29 +298,29 @@ const Field = ({ label, required, error, children }) => (
 const StepIndicator = ({ step }) => {
   const steps = ["Tour & Vehicle", "Your Details", "Review & Book"];
   return (
-    <div className="flex items-center justify-center gap-0 mb-8">
+    <div className="flex items-center justify-center gap-0 mb-6 sm:mb-8">
       {steps.map((label, i) => {
         const n = i + 1, done = step > n, cur = step === n;
         return (
           <div key={label} className="flex items-center">
             <div className="flex flex-col items-center">
-              <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-sm font-bold border-2 transition-all duration-200
+              <div className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold border-2 transition-all duration-200
                 ${done ? "bg-primary-500 border-primary-500 text-white"
                 : cur  ? "bg-white border-primary-500 text-primary-600"
                 :        "bg-white border-gray-200 text-gray-400"}`}>
                 {done ? <Check size={14} strokeWidth={3} /> : n}
               </div>
-              <span className={`hidden sm:block text-xs mt-1.5 font-semibold whitespace-nowrap
+              <span className={`hidden sm:block text-[10px] sm:text-xs mt-1 font-semibold whitespace-nowrap
                 ${cur ? "text-primary-600" : done ? "text-primary-500" : "text-gray-400"}`}>
                 {label}
               </span>
-              <span className={`block sm:hidden text-[10px] mt-1 font-semibold
+              <span className={`block sm:hidden text-[8px] mt-1 font-semibold whitespace-nowrap
                 ${cur ? "text-primary-600" : done ? "text-primary-500" : "text-gray-400"}`}>
                 {["Tour", "Details", "Review"][i]}
               </span>
             </div>
             {i < steps.length - 1 && (
-              <div className={`w-8 sm:w-14 h-0.5 mb-5 mx-1 sm:mx-2 transition-all duration-300
+              <div className={`w-6 sm:w-14 h-0.5 mb-4 sm:mb-5 mx-1 transition-all duration-300
                 ${step > n ? "bg-primary-500" : "bg-gray-200"}`} />
             )}
           </div>
@@ -338,12 +338,12 @@ const Step1 = ({ selItin, setSelItin, selVehicle, setSelVehicle, onNext, onViewD
   const ok = selItin && selVehicle;
 
   return (
-    <div>
+    <div className="space-y-6">
       {/* Itineraries */}
-      <div className="mb-6 sm:mb-8">
+      <div>
         <h3 className="text-base font-bold text-gray-900 mb-0.5">Choose Your Itinerary</h3>
-        <p className="text-sm text-gray-500 mb-4 sm:mb-5">Select from our available Sri Lanka tour packages</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <p className="text-xs sm:text-sm text-gray-500 mb-4">Select from our available Sri Lanka tour packages</p>
+        <div className="grid grid-cols-1 gap-3">
           {ITINERARIES.map(itin => {
             const sel = selItin?.id === itin.id;
             const exp = expanded === itin.id;
@@ -353,14 +353,14 @@ const Step1 = ({ selItin, setSelItin, selVehicle, setSelVehicle, onNext, onViewD
                 className={`rounded-2xl border-2 cursor-pointer transition-all duration-200 overflow-hidden
                   ${sel ? "border-primary-500 bg-primary-50" : "border-gray-100 bg-white hover:border-primary-300 hover:shadow-md"}`}
               >
-                <div className="px-4 py-4">
+                <div className="px-3 sm:px-4 py-3 sm:py-4">
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div className="flex-1 min-w-0">
                       <div className="flex gap-1.5 mb-1.5 flex-wrap">
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${catColor(itin.category)}`}>{itin.category}</span>
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${diffColor(itin.difficulty)}`}>{itin.difficulty}</span>
+                        <span className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-semibold ${catColor(itin.category)}`}>{itin.category}</span>
+                        <span className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-semibold ${diffColor(itin.difficulty)}`}>{itin.difficulty}</span>
                       </div>
-                      <h4 className="text-sm font-bold text-gray-900 leading-snug">{itin.title}</h4>
+                      <h4 className="text-sm sm:text-base font-bold text-gray-900 leading-snug">{itin.title}</h4>
                     </div>
                     <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-1 transition-all
                       ${sel ? "bg-primary-500 border-primary-500" : "border-gray-300"}`}>
@@ -381,13 +381,13 @@ const Step1 = ({ selItin, setSelItin, selVehicle, setSelVehicle, onNext, onViewD
                   </p>
                   <div className="flex items-center gap-4 flex-wrap">
                     <button
-                      className="flex items-center gap-1 text-xs text-primary-600 font-semibold border-none bg-transparent cursor-pointer font-sans p-0 min-h-[32px]"
+                      className="flex items-center gap-1 text-[10px] sm:text-xs text-primary-600 font-semibold border-none bg-transparent cursor-pointer font-sans p-0 min-h-[32px]"
                       onClick={e => { e.stopPropagation(); setExpanded(exp ? null : itin.id); }}
                     >
                       {exp ? <><ChevronUp size={12} strokeWidth={2} />Hide highlights</> : <><ChevronDown size={12} strokeWidth={2} />View highlights</>}
                     </button>
                     <button
-                      className="flex items-center gap-1 text-xs text-gray-500 font-semibold border-none bg-transparent cursor-pointer font-sans p-0 min-h-[32px] hover:text-primary-600"
+                      className="flex items-center gap-1 text-[10px] sm:text-xs text-gray-500 font-semibold border-none bg-transparent cursor-pointer font-sans p-0 min-h-[32px] hover:text-primary-600"
                       onClick={e => { e.stopPropagation(); onViewDetails(itin); }}
                     >
                       <ArrowRight size={12} strokeWidth={2} /> Full details
@@ -413,40 +413,39 @@ const Step1 = ({ selItin, setSelItin, selVehicle, setSelVehicle, onNext, onViewD
       </div>
 
       {/* Vehicles */}
-      <div className="mb-6 sm:mb-8">
+      <div>
         <h3 className="text-base font-bold text-gray-900 mb-0.5">Choose Your Vehicle</h3>
-        <p className="text-sm text-gray-500 mb-4 sm:mb-5">
+        <p className="text-xs sm:text-sm text-gray-500 mb-4">
           Private vehicle with an English-speaking driver-guide. ${VEHICLES[0].ratePerDay}/day for a car, ${VEHICLES[1].ratePerDay}/day for a van
           {selItin ? ` — ${selItin.days} days for this tour.` : "."}
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3">
           {VEHICLES.map(v => {
             const sel = selVehicle?.id === v.id;
             return (
               <div key={v.id} onClick={() => setSelVehicle(v)}
-                className={`rounded-2xl border-2 px-4 py-4 cursor-pointer transition-all duration-200
+                className={`rounded-2xl border-2 px-3 sm:px-4 py-3 sm:py-4 cursor-pointer transition-all duration-200
                   ${sel ? "border-primary-500 bg-primary-50" : "border-gray-100 bg-white hover:border-primary-300 hover:shadow-md"}`}
               >
-                <div className="flex items-center gap-3 sm:block">
-                  <span className="text-3xl leading-none flex-shrink-0">{v.emoji}</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl sm:text-3xl leading-none flex-shrink-0">{v.emoji}</span>
                   <div className="flex-1 min-w-0">
-                    <div className="sm:flex sm:items-start sm:justify-between sm:mb-2 w-full">
+                    <div className="flex items-start justify-between mb-1">
                       <div>
-                        <div className="font-bold text-gray-900 text-sm">{v.name}</div>
-                        <div className="text-xs text-primary-600 font-semibold">{v.capacity}</div>
+                        <div className="font-bold text-gray-900 text-sm sm:text-base">{v.name}</div>
+                        <div className="text-[10px] sm:text-xs text-primary-600 font-semibold">{v.capacity}</div>
                       </div>
                       <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all
                         ${sel ? "bg-primary-500 border-primary-500" : "border-gray-300"}`}>
                         {sel && <Check size={10} strokeWidth={3} className="text-white" />}
                       </div>
                     </div>
-                    <div className="text-xs text-gray-500 leading-relaxed hidden sm:block mb-2">{v.desc}</div>
-                    <span className="inline-block bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full">
+                    <div className="text-[10px] sm:text-xs text-gray-500 leading-relaxed">{v.desc}</div>
+                    <span className="inline-block bg-gray-100 text-gray-500 text-[10px] sm:text-xs px-2 py-0.5 rounded-full mt-1">
                       ${v.ratePerDay}/day{selItin ? ` · $${calcTotal(selItin, v).toLocaleString()} total` : ""}
                     </span>
                   </div>
                 </div>
-                <div className="text-xs text-gray-500 leading-relaxed mt-2 sm:hidden">{v.desc}</div>
               </div>
             );
           })}
@@ -495,9 +494,9 @@ const Step2 = ({ form, setForm, onNext, onBack }) => {
   return (
     <div>
       <h3 className="text-base font-bold text-gray-900 mb-0.5">Your Details</h3>
-      <p className="text-sm text-gray-500 mb-5">All fields marked <span className="text-red-500">*</span> are required.</p>
+      <p className="text-xs sm:text-sm text-gray-500 mb-5">All fields marked <span className="text-red-500">*</span> are required.</p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-1 gap-4 mb-4">
         <Field label="First Name" required error={errors.firstName}>
           <div className="relative">
             <User size={14} strokeWidth={2} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
@@ -609,44 +608,44 @@ const Step3 = ({ form, itin, vehicle, onBack, onSubmit, submitting, submitError 
 
   const Row = ({ label, val }) => (
     <div className="flex justify-between items-start py-2 border-b border-gray-50 last:border-0 gap-2">
-      <span className="text-xs text-gray-500 flex-shrink-0">{label}</span>
-      <span className="text-xs font-semibold text-gray-900 text-right break-all">{val}</span>
+      <span className="text-[10px] sm:text-xs text-gray-500 flex-shrink-0">{label}</span>
+      <span className="text-[10px] sm:text-xs font-semibold text-gray-900 text-right break-all">{val}</span>
     </div>
   );
 
   return (
     <div>
       <h3 className="text-base font-bold text-gray-900 mb-0.5">Review Your Booking</h3>
-      <p className="text-sm text-gray-500 mb-5">Please check everything before confirming.</p>
+      <p className="text-xs sm:text-sm text-gray-500 mb-5">Please check everything before confirming.</p>
 
       {/* Tour Summary */}
-      <div className="bg-primary-50 border border-primary-100 rounded-2xl p-4 mb-4">
+      <div className="bg-primary-50 border border-primary-100 rounded-2xl p-3 sm:p-4 mb-4">
         <div className="flex gap-2 mb-2 flex-wrap">
-          <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${catColor(itin.category)}`}>{itin.category}</span>
-          <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${diffColor(itin.difficulty)}`}>{itin.difficulty}</span>
+          <span className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-semibold ${catColor(itin.category)}`}>{itin.category}</span>
+          <span className={`text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-semibold ${diffColor(itin.difficulty)}`}>{itin.difficulty}</span>
         </div>
-        <h4 className="text-sm font-extrabold text-gray-900 mb-1">{itin.title}</h4>
-        <div className="flex gap-3 text-xs text-gray-500 mb-1.5 flex-wrap">
+        <h4 className="text-sm sm:text-base font-extrabold text-gray-900 mb-1">{itin.title}</h4>
+        <div className="flex gap-3 text-[10px] sm:text-xs text-gray-500 mb-1.5 flex-wrap">
           <span className="flex items-center gap-1"><Clock size={11} strokeWidth={2} />{itin.days}D / {itin.nights}N</span>
           <span className="flex items-center gap-1"><Car size={11} strokeWidth={2} />{vehicle.emoji} {vehicle.name} ({vehicle.capacity})</span>
         </div>
-        <p className="text-xs text-gray-400 flex items-start gap-1">
+        <p className="text-[10px] sm:text-xs text-gray-400 flex items-start gap-1">
           <MapPin size={11} strokeWidth={2} className="flex-shrink-0 mt-0.5" /><span>{itin.locations.join(" → ")}</span>
         </p>
       </div>
 
       {/* Details Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-        <div className="bg-white border border-gray-100 rounded-2xl p-4">
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5">Traveller</p>
+      <div className="grid grid-cols-1 gap-4 mb-4">
+        <div className="bg-white border border-gray-100 rounded-2xl p-3 sm:p-4">
+          <p className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5">Traveller</p>
           <Row label="Full Name"    val={`${form.firstName} ${form.lastName}`} />
           <Row label="Email"        val={form.email} />
           <Row label="Phone"        val={form.phone} />
           <Row label="Nationality"  val={form.nationality} />
           {form.passportNo && <Row label="Passport/NIC" val={form.passportNo} />}
         </div>
-        <div className="bg-white border border-gray-100 rounded-2xl p-4">
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5">Booking</p>
+        <div className="bg-white border border-gray-100 rounded-2xl p-3 sm:p-4">
+          <p className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5">Booking</p>
           <Row label="Start Date"   val={startStr} />
           <Row label="End Date"     val={endStr} />
           <Row label="Adults"       val={form.adults} />
@@ -657,32 +656,32 @@ const Step3 = ({ form, itin, vehicle, onBack, onSubmit, submitting, submitError 
       </div>
 
       {form.specialRequests && (
-        <div className="bg-amber-50 border border-amber-100 rounded-xl px-4 py-3 mb-4">
-          <p className="text-xs font-bold text-amber-700 mb-0.5">Special Requests</p>
-          <p className="text-xs text-amber-800 leading-relaxed">{form.specialRequests}</p>
+        <div className="bg-amber-50 border border-amber-100 rounded-xl px-3 sm:px-4 py-3 mb-4">
+          <p className="text-[10px] sm:text-xs font-bold text-amber-700 mb-0.5">Special Requests</p>
+          <p className="text-[10px] sm:text-xs text-amber-800 leading-relaxed">{form.specialRequests}</p>
         </div>
       )}
 
       {/* Price */}
-      <div className="bg-white border-2 border-primary-100 rounded-2xl p-4 sm:p-5 mb-5">
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Tour Cost</p>
-        <div className="flex justify-between py-1.5 text-sm text-gray-600">
+      <div className="bg-white border-2 border-primary-100 rounded-2xl p-3 sm:p-5 mb-5">
+        <p className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Tour Cost</p>
+        <div className="flex justify-between py-1.5 text-xs sm:text-sm text-gray-600">
           <span>${vehicle.ratePerDay}/day × {itin.days} days ({vehicle.name})</span>
           <span className="font-bold text-gray-900">${total.toLocaleString()}</span>
         </div>
         <div className="border-t border-gray-100 mt-2 pt-2.5 flex justify-between items-center">
           <span className="text-sm font-bold text-gray-900">Total Tour Cost</span>
-          <span className="text-xl font-extrabold text-primary-500">${total.toLocaleString()} <span className="text-xs font-normal text-gray-400">USD</span></span>
+          <span className="text-lg sm:text-xl font-extrabold text-primary-500">${total.toLocaleString()} <span className="text-[10px] sm:text-xs font-normal text-gray-400">USD</span></span>
         </div>
-        <p className="text-xs text-gray-400 mt-2 flex items-start gap-1 leading-relaxed">
+        <p className="text-[10px] sm:text-xs text-gray-400 mt-2 flex items-start gap-1 leading-relaxed">
           <Info size={11} strokeWidth={2} className="flex-shrink-0 mt-0.5" />
           Covers private transport, guide, sightseeing & activities. Accommodation, meals, and entrance tickets are quoted separately.
         </p>
       </div>
 
       {/* What happens next */}
-      <div className="bg-gray-50 border border-gray-100 rounded-xl px-4 py-4 mb-5">
-        <p className="text-xs font-bold text-gray-600 mb-2.5">What happens when you click "Confirm Booking":</p>
+      <div className="bg-gray-50 border border-gray-100 rounded-xl px-3 sm:px-4 py-4 mb-5">
+        <p className="text-[10px] sm:text-xs font-bold text-gray-600 mb-2.5">What happens when you click "Confirm Booking":</p>
         <div className="space-y-1.5">
           {[
             ["📧", `Booking email sent to insitours@gmail.com (CC'd to ${form.email})`],
@@ -692,16 +691,16 @@ const Step3 = ({ form, itin, vehicle, onBack, onSubmit, submitting, submitError 
           ].map(([icon, text]) => (
             <div key={text} className="flex items-start gap-2">
               <span className="text-sm leading-none mt-0.5 flex-shrink-0">{icon}</span>
-              <span className="text-xs text-gray-600">{text}</span>
+              <span className="text-[10px] sm:text-xs text-gray-600">{text}</span>
             </div>
           ))}
         </div>
       </div>
 
       {submitError && (
-        <div className="mb-4 bg-red-50 border border-red-200 rounded-xl px-4 py-3 flex items-center gap-2">
+        <div className="mb-4 bg-red-50 border border-red-200 rounded-xl px-3 sm:px-4 py-3 flex items-center gap-2">
           <AlertCircle size={15} strokeWidth={2} className="text-red-500 flex-shrink-0" />
-          <p className="text-sm text-red-700">{submitError}</p>
+          <p className="text-xs sm:text-sm text-red-700">{submitError}</p>
         </div>
       )}
 
@@ -720,7 +719,7 @@ const Step3 = ({ form, itin, vehicle, onBack, onSubmit, submitting, submitError 
             : <><Send size={15} strokeWidth={2} />Confirm Booking</>}
         </button>
       </div>
-      <p className="text-center text-xs text-gray-400 mt-3">
+      <p className="text-center text-[10px] sm:text-xs text-gray-400 mt-3">
         Free cancellation up to 30 days prior · No payment required now
       </p>
     </div>
@@ -734,9 +733,9 @@ const SuccessScreen = ({ form, itin, vehicle, onReset, bookingRef, pdfStatus, on
   const total = calcTotal(itin, vehicle);
 
   return (
-    <div className="py-6 px-2">
+    <div className="py-4 sm:py-6 px-1 sm:px-2">
       {/* PDF status banner */}
-      <div className={`max-w-md mx-auto mb-5 rounded-xl px-4 py-3 flex items-center gap-3 transition-all duration-300
+      <div className={`max-w-md mx-auto mb-4 sm:mb-5 rounded-xl px-3 sm:px-4 py-3 flex items-center gap-3 transition-all duration-300
         ${pdfStatus === "generating" ? "bg-blue-50 border border-blue-100"
         : pdfStatus === "done"       ? "bg-green-50 border border-green-100"
         :                              "bg-amber-50 border border-amber-100"}`}>
@@ -744,8 +743,8 @@ const SuccessScreen = ({ form, itin, vehicle, onReset, bookingRef, pdfStatus, on
           <>
             <Loader size={16} strokeWidth={2} className="text-blue-500 animate-spin flex-shrink-0" />
             <div>
-              <p className="text-sm font-semibold text-blue-800">Generating your PDF…</p>
-              <p className="text-xs text-blue-600">Your confirmation slip is being prepared.</p>
+              <p className="text-xs sm:text-sm font-semibold text-blue-800">Generating your PDF…</p>
+              <p className="text-[10px] sm:text-xs text-blue-600">Your confirmation slip is being prepared.</p>
             </div>
           </>
         )}
@@ -753,8 +752,8 @@ const SuccessScreen = ({ form, itin, vehicle, onReset, bookingRef, pdfStatus, on
           <>
             <CheckCircle size={16} strokeWidth={2} className="text-green-500 flex-shrink-0" />
             <div>
-              <p className="text-sm font-semibold text-green-800">PDF downloaded successfully!</p>
-              <p className="text-xs text-green-600">Check your Downloads folder for <strong>insi-tours-booking-{bookingRef}.pdf</strong></p>
+              <p className="text-xs sm:text-sm font-semibold text-green-800">PDF downloaded successfully!</p>
+              <p className="text-[10px] sm:text-xs text-green-600">Check your Downloads folder for <strong>insi-tours-booking-{bookingRef}.pdf</strong></p>
             </div>
           </>
         )}
@@ -762,28 +761,28 @@ const SuccessScreen = ({ form, itin, vehicle, onReset, bookingRef, pdfStatus, on
           <>
             <AlertCircle size={16} strokeWidth={2} className="text-amber-500 flex-shrink-0" />
             <div>
-              <p className="text-sm font-semibold text-amber-800">Auto-download failed</p>
-              <p className="text-xs text-amber-600">Use the button below to download manually.</p>
+              <p className="text-xs sm:text-sm font-semibold text-amber-800">Auto-download failed</p>
+              <p className="text-[10px] sm:text-xs text-amber-600">Use the button below to download manually.</p>
             </div>
           </>
         )}
       </div>
 
       {/* Confirmation card */}
-      <div className="max-w-md mx-auto mb-5">
+      <div className="max-w-md mx-auto mb-4 sm:mb-5">
         <div style={{
           backgroundColor: "#ffffff",
           borderRadius: "20px",
           border: "1px solid #e5e7eb",
-          padding: "28px 24px 24px",
+          padding: "20px 16px 20px",
           fontFamily: "system-ui, -apple-system, sans-serif",
           boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
         }}>
           <div style={{
             background: "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)",
             borderRadius: "12px",
-            padding: "18px 20px",
-            marginBottom: "20px",
+            padding: "14px 16px",
+            marginBottom: "16px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -791,34 +790,34 @@ const SuccessScreen = ({ form, itin, vehicle, onReset, bookingRef, pdfStatus, on
             gap: "8px",
           }}>
             <div>
-              <div style={{ color: "#bae6fd", fontSize: "11px", fontWeight: "600", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
+              <div style={{ color: "#bae6fd", fontSize: "9px", fontWeight: "600", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>
                 Insi Tours · Booking Confirmation
               </div>
-              <div style={{ color: "#ffffff", fontSize: "20px", fontWeight: "800", letterSpacing: "0.5px" }}>
+              <div style={{ color: "#ffffff", fontSize: "16px", fontWeight: "800", letterSpacing: "0.5px" }}>
                 {bookingRef}
               </div>
             </div>
             <div style={{
               background: "rgba(255,255,255,0.2)",
               borderRadius: "10px",
-              padding: "6px 12px",
+              padding: "4px 10px",
               color: "#ffffff",
-              fontSize: "12px",
+              fontSize: "10px",
               fontWeight: "700",
             }}>
               ✓ Confirmed
             </div>
           </div>
 
-          <div style={{ marginBottom: "16px" }}>
-            <div style={{ color: "#6b7280", fontSize: "10px", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "6px" }}>Tour Package</div>
-            <div style={{ color: "#111827", fontSize: "15px", fontWeight: "800", marginBottom: "4px" }}>{itin.title}</div>
-            <div style={{ color: "#6b7280", fontSize: "12px" }}>{itin.days} Days / {itin.nights} Nights · {itin.category} · {itin.difficulty}</div>
+          <div style={{ marginBottom: "14px" }}>
+            <div style={{ color: "#6b7280", fontSize: "9px", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "4px" }}>Tour Package</div>
+            <div style={{ color: "#111827", fontSize: "14px", fontWeight: "800", marginBottom: "4px" }}>{itin.title}</div>
+            <div style={{ color: "#6b7280", fontSize: "11px" }}>{itin.days} Days / {itin.nights} Nights · {itin.category} · {itin.difficulty}</div>
           </div>
 
-          <div style={{ borderTop: "1px solid #f3f4f6", marginBottom: "16px" }} />
+          <div style={{ borderTop: "1px solid #f3f4f6", marginBottom: "14px" }} />
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 16px", marginBottom: "16px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px 12px", marginBottom: "14px" }}>
             {[
               ["Traveller",        `${form.firstName} ${form.lastName}`],
               ["Nationality",      form.nationality],
@@ -828,50 +827,50 @@ const SuccessScreen = ({ form, itin, vehicle, onReset, bookingRef, pdfStatus, on
               ["Adults/Children",  `${form.adults} / ${form.children || "0"}`],
             ].map(([label, val]) => (
               <div key={label}>
-                <div style={{ color: "#9ca3af", fontSize: "10px", fontWeight: "600", textTransform: "uppercase", marginBottom: "2px" }}>{label}</div>
-                <div style={{ fontSize: "12px", fontWeight: "600", wordBreak: "break-all" }}>{val}</div>
+                <div style={{ color: "#9ca3af", fontSize: "8px", fontWeight: "600", textTransform: "uppercase", marginBottom: "2px" }}>{label}</div>
+                <div style={{ fontSize: "10px", fontWeight: "600", wordBreak: "break-all" }}>{val}</div>
               </div>
             ))}
           </div>
 
-          <div style={{ borderTop: "1px solid #f3f4f6", marginBottom: "14px" }} />
+          <div style={{ borderTop: "1px solid #f3f4f6", marginBottom: "12px" }} />
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
-              <div style={{ color: "#6b7280", fontSize: "10px", fontWeight: "700", textTransform: "uppercase" }}>Total Tour Cost</div>
-              <div style={{ color: "#9ca3af", fontSize: "10px", marginTop: "2px" }}>Excl. accommodation & meals</div>
+              <div style={{ color: "#6b7280", fontSize: "9px", fontWeight: "700", textTransform: "uppercase" }}>Total Tour Cost</div>
+              <div style={{ color: "#9ca3af", fontSize: "8px", marginTop: "2px" }}>Excl. accommodation & meals</div>
             </div>
-            <div style={{ color: "#0284c7", fontSize: "22px", fontWeight: "800" }}>
-              ${total.toLocaleString()} <span style={{ fontSize: "11px", color: "#9ca3af", fontWeight: "400" }}>USD</span>
+            <div style={{ color: "#0284c7", fontSize: "18px", fontWeight: "800" }}>
+              ${total.toLocaleString()} <span style={{ fontSize: "9px", color: "#9ca3af", fontWeight: "400" }}>USD</span>
             </div>
           </div>
 
-          <div style={{ marginTop: "16px", borderTop: "1px solid #f3f4f6", paddingTop: "12px", textAlign: "center" }}>
-            <div style={{ color: "#9ca3af", fontSize: "10px" }}>insitours@gmail.com</div>
+          <div style={{ marginTop: "14px", borderTop: "1px solid #f3f4f6", paddingTop: "10px", textAlign: "center" }}>
+            <div style={{ color: "#9ca3af", fontSize: "9px" }}>insitours@gmail.com</div>
           </div>
         </div>
       </div>
 
       {/* Status chips */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-5 max-w-md mx-auto">
+      <div className="grid grid-cols-3 gap-2 mb-4 sm:mb-5 max-w-md mx-auto">
         {[
           { icon: "📧", label: "Email sent + CC'd", val: "company & you" },
           { icon: "📄", label: "PDF downloaded",    val: "Auto-downloaded" },
           { icon: "💾", label: "Saved locally",     val: "Browser backup" },
         ].map(({ icon, label, val }) => (
-          <div key={label} className="bg-gray-50 rounded-xl px-2 sm:px-3 py-3 text-center">
+          <div key={label} className="bg-gray-50 rounded-xl px-2 py-2 sm:py-3 text-center">
             <div className="text-lg sm:text-xl mb-1">{icon}</div>
-            <div className="text-xs font-bold text-gray-700 leading-tight">{label}</div>
-            <div className="text-xs text-gray-400 hidden sm:block truncate">{val}</div>
+            <div className="text-[8px] sm:text-xs font-bold text-gray-700 leading-tight">{label}</div>
+            <div className="text-[7px] sm:text-xs text-gray-400 hidden sm:block truncate">{val}</div>
           </div>
         ))}
       </div>
 
-      <p className="text-sm text-gray-500 mb-5 max-w-sm mx-auto leading-relaxed px-2 text-center">
+      <p className="text-xs sm:text-sm text-gray-500 mb-4 max-w-sm mx-auto leading-relaxed px-2 text-center">
         Our team will reach out within <span className="font-semibold text-gray-700">24 hours</span> to
         confirm availability and share payment details.
       </p>
-      <p className="text-sm text-gray-500 mb-5 max-w-sm mx-auto leading-relaxed px-2 text-center">
+      <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-5 max-w-sm mx-auto leading-relaxed px-2 text-center">
         The booking procedure makes detailed connection and we will connect you to <span className="font-semibold text-gray-700">confirm</span> your booking to prepare your tour.
       </p>
 
@@ -892,7 +891,7 @@ const SuccessScreen = ({ form, itin, vehicle, onReset, bookingRef, pdfStatus, on
           Book Another Tour
         </button>
       </div>
-      <p className="text-center text-xs text-gray-400 mt-3">
+      <p className="text-center text-[10px] sm:text-xs text-gray-400 mt-3">
         Saved as <span className="font-mono">insi-tours-booking-{bookingRef}.pdf</span>
       </p>
     </div>
@@ -1050,7 +1049,7 @@ const Booking = () => {
   const estTotal = selItin && selVehicle ? calcTotal(selItin, selVehicle) : null;
 
   return (
-    <div className="font-sans bg-white text-gray-900 overflow-x-hidden">
+    <div className="font-sans bg-white text-gray-900 overflow-x-hidden min-h-screen">
       <style>{`
         .bg-primary-500   { background-color: #0284c7; }
         .bg-primary-50    { background-color: #f0f9ff; }
@@ -1066,26 +1065,26 @@ const Booking = () => {
         .focus\\:border-primary-500:focus { border-color: #0284c7; }
       `}</style>
 
-      <section className="py-10 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-12 bg-white">
+      <section className="pt-[140px] sm:pt-[160px] lg:pt-[180px] pb-10 sm:pb-16 lg:pb-20 px-3 sm:px-6 lg:px-12 bg-white">
         <div className="max-w-[1200px] mx-auto">
           {!done && (
             <div className="mb-6 sm:mb-10">
-              <span className="bg-primary-100 text-primary-600 px-3.5 py-1.5 rounded-full text-sm font-semibold">
+              <span className="bg-primary-100 text-primary-600 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[10px] sm:text-sm font-semibold">
                 Book Online
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-gray-900 mt-3">
+              <h2 className="text-xl sm:text-2xl lg:text-4xl font-extrabold tracking-tight text-gray-900 mt-3">
                 Book Your Sri Lanka Tour
               </h2>
-              <p className="text-gray-500 text-sm sm:text-base mt-1">
+              <p className="text-xs sm:text-sm lg:text-base text-gray-500 mt-1">
                 Fill in the form and our team will confirm your booking within 24 hours. No payment required now.
               </p>
             </div>
           )}
 
-          <div className="flex gap-6 lg:gap-10 flex-col lg:flex-row items-start">
+          <div className="flex gap-4 lg:gap-10 flex-col lg:flex-row items-start">
             {/* Main form area */}
             <div className="flex-1 w-full min-w-0">
-              <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl shadow-sm p-4 sm:p-6 lg:p-8">
+              <div className="bg-white border border-gray-100 rounded-2xl sm:rounded-3xl shadow-sm p-3 sm:p-6 lg:p-8">
                 {done ? (
                   <SuccessScreen
                     form={form}
@@ -1131,14 +1130,14 @@ const Booking = () => {
             {/* Sidebar */}
             {!done && (
               <div className="lg:w-72 w-full flex-shrink-0">
-                <div className="lg:sticky lg:top-28 space-y-4">
+                <div className="lg:sticky lg:top-[180px] space-y-4">
                   {selItin ? (
-                    <div className="bg-primary-50 border border-primary-100 rounded-2xl p-4 sm:p-5">
-                      <p className="text-xs font-bold text-primary-600 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                    <div className="bg-primary-50 border border-primary-100 rounded-2xl p-3 sm:p-5">
+                      <p className="text-[10px] sm:text-xs font-bold text-primary-600 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                         <Layers size={12} strokeWidth={2} /> Selected Tour
                       </p>
-                      <h4 className="text-sm font-bold text-gray-900 mb-2.5">{selItin.title}</h4>
-                      <div className="space-y-1.5 text-xs text-gray-600">
+                      <h4 className="text-xs sm:text-sm font-bold text-gray-900 mb-2.5">{selItin.title}</h4>
+                      <div className="space-y-1.5 text-[10px] sm:text-xs text-gray-600">
                         <div className="flex items-center gap-2">
                           <Clock size={11} strokeWidth={2} className="text-primary-500 flex-shrink-0" />
                           {selItin.days} Days / {selItin.nights} Nights
@@ -1162,20 +1161,20 @@ const Booking = () => {
                       </div>
                       {estTotal && (
                         <div className="mt-3 pt-3 border-t border-primary-200 flex justify-between items-center">
-                          <span className="text-xs text-gray-500">Total Cost</span>
-                          <span className="text-lg font-extrabold text-primary-600">${estTotal.toLocaleString()}</span>
+                          <span className="text-[10px] sm:text-xs text-gray-500">Total Cost</span>
+                          <span className="text-base sm:text-lg font-extrabold text-primary-600">${estTotal.toLocaleString()}</span>
                         </div>
                       )}
                     </div>
                   ) : (
-                    <div className="bg-gray-50 border border-gray-100 rounded-2xl p-5 text-center">
-                      <Layers size={26} strokeWidth={1.5} className="text-gray-300 mx-auto mb-2" />
-                      <p className="text-xs text-gray-400">Your selected tour will appear here</p>
+                    <div className="bg-gray-50 border border-gray-100 rounded-2xl p-4 sm:p-5 text-center">
+                      <Layers size={24} strokeWidth={1.5} className="text-gray-300 mx-auto mb-2" />
+                      <p className="text-[10px] sm:text-xs text-gray-400">Your selected tour will appear here</p>
                     </div>
                   )}
 
-                  <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-5">
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Why Book With Us</p>
+                  <div className="bg-white border border-gray-100 rounded-2xl p-3 sm:p-5">
+                    <p className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Why Book With Us</p>
                     {[
                       [<Shield size={13} strokeWidth={2} className="text-primary-500" />, "Free cancellation 30 days prior"],
                       [<Star   size={13} strokeWidth={2} className="text-primary-500" />, "Licensed local expert guides"],
@@ -1185,15 +1184,15 @@ const Booking = () => {
                     ].map(([icon, text]) => (
                       <div key={text} className="flex items-center gap-2.5 py-1.5">
                         {icon}
-                        <span className="text-xs text-gray-600">{text}</span>
+                        <span className="text-[10px] sm:text-xs text-gray-600">{text}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-5">
-                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Need Help?</p>
+                  <div className="bg-white border border-gray-100 rounded-2xl p-3 sm:p-5">
+                    <p className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Need Help?</p>
                     <a href="mailto:insitours@gmail.com"
-                      className="flex items-center gap-2.5 text-sm font-semibold text-primary-600 hover:text-primary-700 no-underline">
+                      className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-primary-600 hover:text-primary-700 no-underline">
                       <Mail size={15} strokeWidth={2} /> insitours@gmail.com
                     </a>
                   </div>

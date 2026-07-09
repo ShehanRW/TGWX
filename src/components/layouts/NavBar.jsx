@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useScroll } from '../../hooks/useScroll';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import logo from '../../assets/logo.png';
@@ -8,6 +8,11 @@ const Navbar = () => {
   const { isScrolled, topBarHidden } = useScroll();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location]);
 
   const navLinks = [
     { name: 'Home',                path: '/'             },
@@ -36,39 +41,38 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 font-sans transition-all duration-500 ease-in-out ${
         isScrolled
-          ? 'bg-white/80 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-gray-100/80 py-2'
-          : 'bg-white border-b border-transparent py-4'
-      } ${topBarHidden ? 'top-0' : 'top-9'}`}
+          ? 'bg-white/80 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-gray-100/80 py-1'
+          : 'bg-white border-b border-transparent py-2'
+      } ${topBarHidden ? 'top-0' : 'top-[38px]'}`}
     >
-      <div className="w-full px-6 lg:px-12">
-        {/* Adjusted to grid / flex structures to guarantee perfect centering */}
-        <div className="flex items-center justify-between h-14 md:grid md:grid-cols-3 md:items-center">
+      <div className="w-full px-3 sm:px-6 lg:px-12">
+        <div className="flex items-center justify-between h-12 md:h-14">
 
-          {/* Logo container (Left Grid Cell) */}
+          {/* Logo */}
           <div className="flex justify-start">
             <Link
               to="/"
-              className="flex items-center gap-2.5 no-underline flex-shrink-0 transition-transform duration-300 hover:scale-[1.02]"
+              className="flex items-center gap-2 no-underline flex-shrink-0 transition-transform duration-300 hover:scale-[1.02]"
             >
               <img
                 src={logo}
                 alt="Insi Tours"
                 className={`w-auto object-contain transition-all duration-500 ${
-                  isScrolled ? 'h-14' : 'h-16'
+                  isScrolled ? 'h-10 md:h-14' : 'h-12 md:h-16'
                 }`}
               />
             </Link>
           </div>
 
-          {/* Desktop nav links (Middle Grid Cell - Absolutely Centered) */}
-          <div className="hidden md:flex items-center justify-center gap-1">
+          {/* Desktop nav links - Hidden on tablet, shown on desktop */}
+          <div className="hidden lg:flex items-center justify-center gap-0.5 xl:gap-1">
             {navLinks.map(link => {
               const active = isActive(link.path);
               return (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`relative px-4 py-2 rounded-full text-[14px] font-medium
+                  className={`relative px-3 xl:px-4 py-1.5 xl:py-2 rounded-full text-[13px] xl:text-[14px] font-medium
                              transition-all duration-300 no-underline whitespace-nowrap
                              tracking-wide group
                              ${active
@@ -78,7 +82,7 @@ const Navbar = () => {
                 >
                   {link.name}
                   <span
-                    className={`absolute bottom-1 left-4 right-4 h-[2px] bg-primary-500 rounded-full
+                    className={`absolute bottom-0 left-4 right-4 h-[2px] bg-primary-500 rounded-full
                                 transition-transform duration-300 origin-center
                                 ${active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
                   />
@@ -87,62 +91,64 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* Desktop action buttons (Right Grid Cell) */}
-          <div className="hidden md:flex items-center justify-end gap-3 flex-shrink-0">
+          {/* Desktop action buttons */}
+          <div className="hidden lg:flex items-center justify-end gap-2 xl:gap-3 flex-shrink-0">
             <button
               onClick={handleItineraries}
-              className="px-5 py-2.5 rounded-full text-sm font-medium text-gray-700
+              className="px-3 xl:px-5 py-2 rounded-full text-[12px] xl:text-sm font-medium text-gray-700
                          border border-gray-200 bg-white/50 backdrop-blur-sm
                          hover:border-primary-500 hover:text-primary-500 hover:bg-primary-50/30
-                         transition-all duration-300 cursor-pointer tracking-wide active:scale-[0.97]"
+                         transition-all duration-300 cursor-pointer tracking-wide active:scale-[0.97]
+                         min-h-[36px] xl:min-h-[44px]"
             >
               Itineraries
             </button>
             <button
               onClick={handleBookTrip}
-              className="px-[22px] py-2.5 rounded-full text-sm font-medium text-white
+              className="px-4 xl:px-[22px] py-2 rounded-full text-[12px] xl:text-sm font-medium text-white
                          bg-primary-500 border border-primary-500
                          hover:bg-primary-600 hover:border-primary-600 hover:-translate-y-[1px]
                          shadow-[0_4px_14px_rgba(0,170,108,0.2)] hover:shadow-[0_6px_20px_rgba(0,170,108,0.3)]
                          transition-all duration-300 cursor-pointer flex items-center gap-1.5
-                         tracking-wide active:scale-[0.97]"
+                         tracking-wide active:scale-[0.97] min-h-[36px] xl:min-h-[44px]"
             >
               Book a Trip
             </button>
           </div>
 
-          {/* Mobile hamburger menu button */}
-          <div className="md:hidden flex items-center">
+          {/* Tablet and mobile menu button */}
+          <div className="lg:hidden flex items-center">
             <button
-              className="flex flex-col justify-center items-center gap-[5px] p-2
-                         bg-gray-50/80 backdrop-blur-sm border border-gray-100 cursor-pointer w-10 h-10 rounded-full
+              className="flex flex-col justify-center items-center gap-[4px] p-2
+                         bg-gray-50/80 backdrop-blur-sm border border-gray-100 cursor-pointer 
+                         w-9 h-9 rounded-full
                          hover:bg-gray-100 transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(p => !p)}
               aria-label="Toggle navigation menu"
             >
-              <span className={`block w-5 h-[1.5px] bg-gray-700 rounded-full origin-center transition-all duration-300
-                                ${isMobileMenuOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
-              <span className={`block w-4 h-[1.5px] bg-gray-700 rounded-full transition-all duration-300 self-start ml-2
+              <span className={`block w-4 h-[1.5px] bg-gray-700 rounded-full origin-center transition-all duration-300
+                                ${isMobileMenuOpen ? 'translate-y-[5.5px] rotate-45' : ''}`} />
+              <span className={`block w-3 h-[1.5px] bg-gray-700 rounded-full transition-all duration-300 self-start ml-1
                                 ${isMobileMenuOpen ? 'opacity-0 scale-x-0' : ''}`} />
-              <span className={`block w-5 h-[1.5px] bg-gray-700 rounded-full origin-center transition-all duration-300
-                                ${isMobileMenuOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`} />
+              <span className={`block w-4 h-[1.5px] bg-gray-700 rounded-full origin-center transition-all duration-300
+                                ${isMobileMenuOpen ? '-translate-y-[5.5px] -rotate-45' : ''}`} />
             </button>
           </div>
 
         </div>
       </div>
 
-      {/* Mobile dropdown */}
+      {/* Mobile/Tablet dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden w-full absolute top-full left-0 bg-white/95 backdrop-blur-lg shadow-[0_12px_40px_rgba(0,0,0,0.06)] border-b border-gray-100 animate-fadeInSlide">
-          <div className="max-w-[1200px] mx-auto px-6 pt-3 pb-6 flex flex-col gap-1.5">
+        <div className="lg:hidden w-full absolute top-full left-0 bg-white/95 backdrop-blur-lg shadow-[0_12px_40px_rgba(0,0,0,0.06)] border-b border-gray-100">
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 pt-3 pb-6 flex flex-col gap-1">
             {navLinks.map(link => {
               const active = isActive(link.path);
               return (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`block px-4 py-3 rounded-xl text-[15px] font-medium tracking-wide
+                  className={`block px-4 py-3 rounded-xl text-[14px] sm:text-[15px] font-medium tracking-wide
                              no-underline transition-all duration-200
                              ${active
                                ? 'bg-primary-50/60 text-primary-600'
@@ -154,20 +160,22 @@ const Navbar = () => {
                 </Link>
               );
             })}
-            <div className="flex gap-3 mt-4 pt-4 border-t border-gray-100/80">
+            <div className="flex flex-col sm:flex-row gap-3 mt-4 pt-4 border-t border-gray-100/80">
               <button
                 onClick={handleItineraries}
-                className="flex-1 py-3 rounded-full text-sm font-medium tracking-wide
+                className="w-full sm:flex-1 py-3 rounded-full text-sm font-medium tracking-wide
                            text-primary-600 border border-primary-200 bg-white
-                           hover:bg-primary-50/40 transition-colors duration-200 cursor-pointer active:scale-[0.98]"
+                           hover:bg-primary-50/40 transition-colors duration-200 cursor-pointer 
+                           active:scale-[0.98] min-h-[48px]"
               >
                 Itineraries
               </button>
               <button
                 onClick={handleBookTrip}
-                className="flex-1 py-3 rounded-full text-sm font-medium tracking-wide
+                className="w-full sm:flex-1 py-3 rounded-full text-sm font-medium tracking-wide
                            text-white bg-primary-500 border border-primary-500
-                           hover:bg-primary-600 transition-colors duration-200 cursor-pointer active:scale-[0.98]
+                           hover:bg-primary-600 transition-colors duration-200 cursor-pointer 
+                           active:scale-[0.98] min-h-[48px]
                            shadow-[0_4px_12px_rgba(0,170,108,0.15)]"
               >
                 Book a Trip

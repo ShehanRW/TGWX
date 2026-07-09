@@ -31,183 +31,111 @@ function Destinations() {
       : destinationsData.filter((d) => d.tag === activeCategory);
 
   return (
-    <div style={{ padding: "120px 60px 60px" }}>
-
+    <div className="bg-white min-h-screen overflow-x-hidden">
       {/* Modal */}
       <DestinationModal
         destination={selected}
         onClose={() => setSelected(null)}
       />
 
-      {/* Header */}
-      <div style={{ marginBottom: "32px" }}>
-        <h1 style={{ fontSize: "2.2rem", fontWeight: 800, color: "#111827", marginBottom: "8px" }}>
-          Popular Destinations
-        </h1>
-        <p style={{ color: "#6B7280", fontSize: "1rem" }}>
-          Explore the best of Sri Lanka — from ancient heritage to pristine beaches.
-        </p>
-      </div>
+      {/* Main Content with proper padding for navigation */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-[140px] sm:pt-[160px] lg:pt-[180px] pb-10 sm:pb-16">
+        
+        {/* Header */}
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-2">
+            Popular Destinations
+          </h1>
+          <p className="text-sm sm:text-base text-gray-500">
+            Explore the best of Sri Lanka — from ancient heritage to pristine beaches.
+          </p>
+        </div>
 
-      {/* Category Filter */}
-      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "32px" }}>
-        {CATEGORIES.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            style={{
-              padding: "8px 18px",
-              borderRadius: "999px",
-              border: "1.5px solid",
-              borderColor: activeCategory === cat ? "#00AA6C" : "#E5E7EB",
-              background: activeCategory === cat ? "#00AA6C" : "#fff",
-              color: activeCategory === cat ? "#fff" : "#374151",
-              fontWeight: 500,
-              fontSize: "0.85rem",
-              cursor: "pointer",
-              transition: "all 0.2s",
-            }}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+        {/* Category Filter */}
+        <div className="flex gap-2 sm:gap-3 flex-wrap mb-6 sm:mb-8">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-3 sm:px-5 py-2 rounded-full border-2 font-medium text-xs sm:text-sm transition-all duration-200 min-h-[40px] sm:min-h-[44px]
+                ${activeCategory === cat 
+                  ? "bg-[#00AA6C] border-[#00AA6C] text-white" 
+                  : "bg-white border-gray-200 text-gray-700 hover:border-[#00AA6C] hover:text-[#00AA6C]"}`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
-      {/* Grid */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gap: "24px",
-        }}
-      >
-        {filtered.map((card) => (
-          <div
-            key={card.id}
-            onClick={() => setSelected(card)}
-            style={{
-              borderRadius: "16px",
-              overflow: "hidden",
-              boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
-              background: "#fff",
-              transition: "transform 0.2s, box-shadow 0.2s",
-              cursor: "pointer",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-6px)";
-              e.currentTarget.style.boxShadow = "0 12px 32px rgba(0,0,0,0.13)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)";
-            }}
-          >
-            {/* Image */}
-            <div style={{ position: "relative", overflow: "hidden" }}>
-              <img
-                src={card.img}
-                alt={card.name}
-                style={{ width: "100%", height: "200px", objectFit: "cover", display: "block" }}
-                onError={(e) => {
-                  e.target.src = "https://placehold.co/600x400?text=" + encodeURIComponent(card.name);
-                }}
-              />
-              {card.badge && card.badgeColor && (
-                <span
-                  style={{
-                    position: "absolute",
-                    top: "12px",
-                    left: "12px",
-                    background: card.badgeColor.bg,
-                    color: card.badgeColor.color,
-                    padding: "4px 10px",
-                    borderRadius: "999px",
-                    fontSize: "0.72rem",
-                    fontWeight: 700,
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {filtered.map((card) => (
+            <div
+              key={card.id}
+              onClick={() => setSelected(card)}
+              className="rounded-2xl overflow-hidden shadow-md bg-white cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
+            >
+              {/* Image */}
+              <div className="relative overflow-hidden">
+                <img
+                  src={card.img}
+                  alt={card.name}
+                  className="w-full h-[180px] sm:h-[200px] object-cover block"
+                  onError={(e) => {
+                    e.target.src = "https://placehold.co/600x400?text=" + encodeURIComponent(card.name);
                   }}
-                >
-                  {card.badge}
-                </span>
-              )}
-              <span
-                style={{
-                  position: "absolute",
-                  bottom: "12px",
-                  right: "12px",
-                  background: "rgba(255,255,255,0.92)",
-                  color: "#374151",
-                  padding: "4px 10px",
-                  borderRadius: "999px",
-                  fontSize: "0.72rem",
-                  fontWeight: 600,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "4px",
-                }}
-              >
-                <Tag size={11} />
-                {card.tag}
-              </span>
-            </div>
-
-            {/* Content */}
-            <div style={{ padding: "16px 18px 20px" }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  marginBottom: "8px",
-                }}
-              >
-                <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#111827", margin: 0 }}>
-                  {card.name}
-                </h3>
-                {card.price && (
-                  <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#00AA6C", whiteSpace: "nowrap", marginLeft: "8px" }}>
-                    {card.price}
+                />
+                {card.badge && card.badgeColor && (
+                  <span
+                    className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold"
+                    style={{
+                      background: card.badgeColor.bg,
+                      color: card.badgeColor.color,
+                    }}
+                  >
+                    {card.badge}
                   </span>
                 )}
+                <span className="absolute bottom-3 right-3 bg-white/92 text-gray-700 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold flex items-center gap-1.5">
+                  <Tag size={11} />
+                  {card.tag}
+                </span>
               </div>
 
-              {card.rating && (
-                <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "10px" }}>
-                  <Stars rating={card.rating} />
-                  <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "#111827" }}>{card.rating}</span>
-                  {card.reviews && (
-                    <span style={{ fontSize: "0.82rem", color: "#9CA3AF" }}>({card.reviews})</span>
+              {/* Content */}
+              <div className="p-4 sm:p-5">
+                <div className="flex justify-between items-start gap-2 mb-2">
+                  <h3 className="text-sm sm:text-base font-bold text-gray-900 m-0 flex-1">
+                    {card.name}
+                  </h3>
+                  {card.price && (
+                    <span className="text-xs sm:text-sm font-bold text-[#00AA6C] whitespace-nowrap">
+                      {card.price}
+                    </span>
                   )}
                 </div>
-              )}
 
-              <p
-                style={{
-                  fontSize: "0.83rem",
-                  color: "#6B7280",
-                  lineHeight: "1.55",
-                  margin: 0,
-                  display: "-webkit-box",
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                }}
-              >
-                {card.description}
-              </p>
+                {card.rating && (
+                  <div className="flex items-center gap-1.5 sm:gap-2 mb-2.5">
+                    <Stars rating={card.rating} />
+                    <span className="text-xs sm:text-sm font-semibold text-gray-900">{card.rating}</span>
+                    {card.reviews && (
+                      <span className="text-xs sm:text-sm text-gray-400">({card.reviews})</span>
+                    )}
+                  </div>
+                )}
 
-              <div
-                style={{
-                  marginTop: "12px",
-                  fontSize: "0.78rem",
-                  fontWeight: 600,
-                  color: "#00AA6C",
-                }}
-              >
-                View details →
+                <p className="text-xs sm:text-sm text-gray-500 leading-relaxed m-0 line-clamp-3">
+                  {card.description}
+                </p>
+
+                <div className="mt-3 text-xs sm:text-sm font-semibold text-[#00AA6C]">
+                  View details →
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
