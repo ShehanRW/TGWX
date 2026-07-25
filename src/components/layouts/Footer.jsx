@@ -47,21 +47,13 @@ const FooterSection = () => {
             {
               title: "Company",
               links: [
-                { label: "About Us", path: "#" },
+                { label: "About Us", path: "/aboutus" },
                 { label: "Blog", path: "#" },
                 { label: "Press Room", path: "#" },
                 { label: "Partnerships", path: "#" },
               ]
             },
-            {
-              title: "Support",
-              links: [
-                { label: "Help Center", path: "#" },
-                { label: "Cancellation Policy", path: "#" },
-                { label: "Travel Insurance", path: "#" },
-                { label: "Safety Tips", path: "#" },
-              ]
-            },
+            
           ].map(col => (
             <div key={col.title}>
               <h4 className="text-xs font-bold tracking-widest uppercase text-gray-50 mb-5">{col.title}</h4>
@@ -91,11 +83,15 @@ const FooterSection = () => {
             <p className="text-sm text-gray-500">© 2026 Insi Tours. All rights reserved.</p>
           </div>
           <div className="flex gap-4 sm:gap-6 flex-wrap justify-center">
-            {["Privacy Policy", "Terms of Service", "Cookie Settings"].map(item => (
-              <a key={item} href="#" className="text-sm text-gray-500 no-underline hover:text-primary-500 transition-colors">
-                {item}
-              </a>
-            ))}
+            <a href="/privacypolicy" className="text-sm text-gray-500 no-underline hover:text-primary-500 transition-colors">
+              Privacy Policy
+            </a>
+            <a href="/terms" className="text-sm text-gray-500 no-underline hover:text-primary-500 transition-colors">
+              Terms of Service
+            </a>
+            <a href="/cookie-policy" className="text-sm text-gray-500 no-underline hover:text-primary-500 transition-colors">
+              Cookie Settings
+            </a>
           </div>
         </div>
       </div>

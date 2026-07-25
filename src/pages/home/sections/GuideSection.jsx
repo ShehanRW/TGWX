@@ -32,7 +32,7 @@ const GuideSection = () => {
             {/* Photo - fixed to show full image without cropping */}
             <div className="order-1 w-full md:w-80 lg:w-96 flex-shrink-0 relative overflow-hidden">
               <img
-                src="/assets/kamal.jpg"
+                src="/assets/kamal2.png"
                 alt="Kamal Edirisinghe — Lead Tour Guide"
                 className="w-full h-auto md:h-full object-cover object-center"
                 onError={e => { e.target.src = "https://placehold.co/400x600?text=Kamal+Edirisinghe"; }}

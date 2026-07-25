@@ -21,11 +21,11 @@ const TopBar = () => {
         fixed top-0 left-0 right-0 z-[50]
         bg-white border-b border-gray-200
         text-black text-xs font-medium
-        transition-transform duration-500 ease-in-out
+        transition-transform duration-300 ease-in-out
         ${topBarHidden ? "-translate-y-full" : "translate-y-0"}
       `}
     >
-      <div className="w-full px-4 md:px-6 lg:px-12">
+      <div className="w-full px-3 md:px-6 lg:px-12">
         {/* Mobile view - collapsible */}
         <div className="md:hidden">
           <button

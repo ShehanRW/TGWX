@@ -39,11 +39,13 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 font-sans transition-all duration-500 ease-in-out ${
-        isScrolled
+      className={`fixed left-0 right-0 z-[49] font-sans transition-all duration-500 ease-in-out
+        ${isScrolled
           ? 'bg-white/80 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-gray-100/80 py-1'
-          : 'bg-white border-b border-transparent py-2'
-      } ${topBarHidden ? 'top-0' : 'top-[38px]'}`}
+          : 'bg-white border-b border-gray-200 py-2'
+        } 
+        ${topBarHidden ? 'top-0' : 'top-[37px]'}
+      `}
     >
       <div className="w-full px-3 sm:px-6 lg:px-12">
         <div className="flex items-center justify-between h-12 md:h-14">
@@ -83,7 +85,7 @@ const Navbar = () => {
                   {link.name}
                   <span
                     className={`absolute bottom-0 left-4 right-4 h-[2px] bg-primary-500 rounded-full
-                                transition-transform duration-300 origin-center
+                                transition-transform duration-100 origin-center
                                 ${active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
                   />
                 </Link>
