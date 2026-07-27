@@ -7,7 +7,7 @@ import ToursSection from "./sections/ToursSection";
 import ReviewsSection from "./sections/ReviewsSection";
 import FooterSection from "../../components/layouts/Footer";
 import GuideSection from "./sections/GuideSection";
-import Seo from "../components/common/Seo";
+import Seo from "../../components/common/Seo";
 
 <Seo
   title="Insi Tours | Home"
