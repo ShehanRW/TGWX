@@ -4,6 +4,30 @@ import { Star, MessageSquare, ThumbsUp, ShieldCheck, ChevronLeft, ChevronRight, 
 const getMockReviews = () => [
   {
     id: 1,
+    reviewer: "Departure589057",
+    rating: 5,
+    date: "March 2026",
+    location: "Wick, United Kingdom",
+    title: "Fantastic holiday with Kamal",
+    text: "My friend and I chose Kamal to be our driver and could not be happier after spending 11 days with him. It was important to us to feel safe and well looked after as travelling in a new county can be exciting and also anxious, but we didn't need to worry about anything. Kamal helped us with our itinerary and travel plans, made good suggestion and took us to local special places where no other Europeans were.",
+    tour: "11-Day Sri Lanka Tour",
+    platform: "TripAdvisor",
+    contributions: "20 contributions"
+  },
+  {
+    id: 2,
+    reviewer: "Wannasurfwell",
+    rating: 5,
+    date: "March 2026",
+    location: "Exeter, United Kingdom",
+    title: "Kamal is the best!",
+    text: "Reading these reviews already posted, I can't agree more! We are two women celebrating our 50th best friends' anniversary - heading towards our 60th year - so picking the right driver has been important. We struck gold! Kamal has been the perfect mix of respectful, kind, interested and fun. He has been such an asset to our trip.",
+    tour: "11-Day Sri Lanka Tour",
+    platform: "TripAdvisor",
+    contributions: "42 contributions"
+  },
+  {
+    id: 3,
     reviewer: "Liz W",
     rating: 5,
     date: "March 2026",
@@ -15,7 +39,7 @@ const getMockReviews = () => [
     contributions: "2 contributions"
   },
   {
-    id: 2,
+    id: 4,
     reviewer: "Jula N",
     rating: 5,
     date: "February 2026",
@@ -27,7 +51,7 @@ const getMockReviews = () => [
     contributions: "5 contributions"
   },
   {
-    id: 3,
+    id: 5,
     reviewer: "Michelle R",
     rating: 5,
     date: "January 2026",
@@ -39,7 +63,7 @@ const getMockReviews = () => [
     contributions: "4 contributions"
   },
   {
-    id: 4,
+    id: 6,
     reviewer: "Stay51790330359",
     rating: 5,
     date: "December 2025",
@@ -51,7 +75,7 @@ const getMockReviews = () => [
     contributions: "3 contributions"
   },
   {
-    id: 5,
+    id: 7,
     reviewer: "Bevan A",
     rating: 5,
     date: "November 2025",
@@ -63,7 +87,31 @@ const getMockReviews = () => [
     contributions: "5 contributions"
   },
   {
-    id: 6,
+    id: 8,
+    reviewer: "Marcos V",
+    rating: 5,
+    date: "October 2025",
+    location: "Argentina",
+    title: "The best in Sri Lanka",
+    text: "We chose Kamal because of the recommendation of friends who came a few weeks early and were with him. We couldn't have got it right. He is probably the best guide and best person in all of Sri Lanka. We stayed with him for 6 days, from the arrival where he picked us up at the Colombo airport until finishing our trip in the south.",
+    tour: "6-Day Sri Lanka Tour",
+    platform: "TripAdvisor",
+    contributions: "2 contributions"
+  },
+  {
+    id: 9,
+    reviewer: "J D",
+    rating: 5,
+    date: "September 2025",
+    location: "United Kingdom",
+    title: "SL private driver tour",
+    text: "Kamal is incredible! 11/10! We chose kamal to be our driver and from the very beginning he was amazing. Before our arrival in SL we had clear communication, with a warm and inviting tone. He accommodated our split late arrivals and drop offs.",
+    tour: "Custom Sri Lanka Tour",
+    platform: "TripAdvisor",
+    contributions: "2 contributions"
+  },
+  {
+    id: 10,
     reviewer: "Benjamin K",
     rating: 5,
     date: "October 2025",
@@ -96,7 +144,13 @@ const ReviewsSection = () => {
   };
 
   const renderStars = (r) => "★".repeat(r) + "☆".repeat(5 - r);
-  const stats = { averageRating: 5.0, totalReviews: 6, recommendationRate: 100 };
+  
+  // Updated stats with all 10 reviews
+  const stats = { 
+    averageRating: 5.0, 
+    totalReviews: 10, 
+    recommendationRate: 100 
+  };
 
   return (
     <section className="py-16 sm:py-20 px-4 sm:px-8 lg:px-12 bg-primary-50">
