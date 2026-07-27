@@ -3,17 +3,36 @@ import { Star, ExternalLink, MapPin, Calendar, Users, ThumbsUp, MessageSquare, A
 import { Link } from "react-router-dom";
 import Seo from "../components/common/Seo";
 
-<Seo
-  title="Insi Tours | Reviews"
-  description="Read authentic reviews from our satisfied customers about their experiences with Insi Tours Tour Guides. Discover what makes our Sri Lankan tours special."
-  path="/reviews"
-/>
-
-// Mock Reviews Data
 const getMockReviews = () => {
   return [
     {
       id: 1,
+      reviewer: "Departure589057",
+      rating: 5,
+      date: "March 2026",
+      location: "Wick, United Kingdom",
+      title: "Fantastic holiday with Kamal",
+      text: "My friend and I chose Kamal to be our driver and could not be happier after spending 11 days with him. It was important to us to feel safe and well looked after as travelling in a new county can be exciting and also anxious, but we didn't need to worry about anything. Kamal helped us with our itinerary and travel plans, made good suggestion and took us to local special places where no other Europeans were. Spending your holiday with any person can seem odd. With spending only a few moment with Kamel we felt relaxed and know we made the right choice. Kamel was knowledge on history and local facts, professional and also had a good sense of humour. The car was great, comfortable with A/C, clean and we also felt safe with Kamal driving. The 11 days flew by, thank you Kamal for being part of our holiday of a life time",
+      tour: "11-Day Sri Lanka Tour",
+      platform: "TripAdvisor",
+      contributions: "20 contributions",
+      tripadvisorLink: "https://www.tripadvisor.com/Attraction_Review-g293962-d34193720-Reviews-Insi_Tours-Colombo_Western_Province.html"
+    },
+    {
+      id: 2,
+      reviewer: "Wannasurfwell",
+      rating: 5,
+      date: "March 2026",
+      location: "Exeter, United Kingdom",
+      title: "Kamal is the best!",
+      text: "Reading these reviews already posted, I can't agree more! We are two women celebrating our 50th best friends' anniversary - heading towards our 60th year - so picking the right driver has been important. We struck gold! Kamal has been the perfect mix of respectful, kind, interested and fun. He has been such an asset to our trip. We booked him for 11 days (airport to airport) and travel nearly 1000km together. He suggested helpful changes to our itinerary and gave us so much local knowledge. One of the best days was when he and his friend took us to a local waterfall and we were the only tourists there. Kamal is a gentle soul who shared his understanding of Buddhism and country history/ politics when we asked. We have laughed together a lot and I cannot recommend him highly enough.",
+      tour: "11-Day Sri Lanka Tour",
+      platform: "TripAdvisor",
+      contributions: "42 contributions",
+      tripadvisorLink: "https://www.tripadvisor.com/Attraction_Review-g293962-d34193720-Reviews-Insi_Tours-Colombo_Western_Province.html"
+    },
+    {
+      id: 3,
       reviewer: "Liz W",
       rating: 5,
       date: "March 2026",
@@ -26,7 +45,7 @@ const getMockReviews = () => {
       tripadvisorLink: "https://www.tripadvisor.com/Attraction_Review-g293962-d34193720-Reviews-Insi_Tours-Colombo_Western_Province.html"
     },
     {
-      id: 2,
+      id: 4,
       reviewer: "Jula N",
       rating: 5,
       date: "February 2026",
@@ -39,7 +58,7 @@ const getMockReviews = () => {
       tripadvisorLink: "https://www.tripadvisor.com/Attraction_Review-g293962-d34193720-Reviews-Insi_Tours-Colombo_Western_Province.html"
     },
     {
-      id: 3,
+      id: 5,
       reviewer: "Michelle R",
       rating: 5,
       date: "January 2026",
@@ -52,7 +71,7 @@ const getMockReviews = () => {
       tripadvisorLink: "https://www.tripadvisor.com/Attraction_Review-g293962-d34193720-Reviews-Insi_Tours-Colombo_Western_Province.html"
     },
     {
-      id: 4,
+      id: 6,
       reviewer: "Stay51790330359",
       rating: 5,
       date: "December 2025",
@@ -65,7 +84,7 @@ const getMockReviews = () => {
       tripadvisorLink: "https://www.tripadvisor.com/Attraction_Review-g293962-d34193720-Reviews-Insi_Tours-Colombo_Western_Province.html"
     },
     {
-      id: 5,
+      id: 7,
       reviewer: "Bevan A",
       rating: 5,
       date: "November 2025",
@@ -78,7 +97,33 @@ const getMockReviews = () => {
       tripadvisorLink: "https://www.tripadvisor.com/Attraction_Review-g293962-d34193720-Reviews-Insi_Tours-Colombo_Western_Province.html"
     },
     {
-      id: 6,
+      id: 8,
+      reviewer: "Marcos V",
+      rating: 5,
+      date: "October 2025",
+      location: "Argentina",
+      title: "The best in Sri Lanka",
+      text: "We chose Kamal because of the recommendation of friends who came a few weeks early and were with him. We couldn't have got it right. He is probably the best guide and best person in all of Sri Lanka. We stayed with him for 6 days, from the arrival where he picked us up at the Colombo airport until finishing our trip in the south. He cares about everything, organizes everything according to what we wanted at any moment, according to the weather and on top of that he got everything right where we went, restaurants, little-known places to visit. Anyway, if you come to Sri Lanka do not hesitate and choose yes or yes to Kamal, you will thank me. For us he is like a friend already, and it is impossible to be a better person than him.",
+      tour: "6-Day Sri Lanka Tour",
+      platform: "TripAdvisor",
+      contributions: "2 contributions",
+      tripadvisorLink: "https://www.tripadvisor.com/Attraction_Review-g293962-d34193720-Reviews-Insi_Tours-Colombo_Western_Province.html"
+    },
+    {
+      id: 9,
+      reviewer: "J D",
+      rating: 5,
+      date: "September 2025",
+      location: "United Kingdom",
+      title: "SL private driver tour",
+      text: "Kamal is incredible! 11/10! We chose kamal to be our driver and from the very beginning he was amazing. Before our arrival in SL we had clear communication, with a warm and inviting tone. He accommodated our split late arrivals and drop offs. We wanted a basic and seamless drive around SL, enjoying the scenery with not too many stops which Kamal provided. Kamal was welcoming, kind and we felt very safe. Kamal offered additional options, history, and fun facts about each area and was always on time and available. We will be recommending Kamal to everyone we speak to visiting SL. Thank you again Kamal for making our trip a memorable one.",
+      tour: "Custom Sri Lanka Tour",
+      platform: "TripAdvisor",
+      contributions: "2 contributions",
+      tripadvisorLink: "https://www.tripadvisor.com/Attraction_Review-g293962-d34193720-Reviews-Insi_Tours-Colombo_Western_Province.html"
+    },
+    {
+      id: 10,
       reviewer: "Benjamin K",
       rating: 5,
       date: "October 2025",
@@ -111,13 +156,11 @@ const Stars = ({ rating, size = 16 }) => (
 // TripAdvisor Write a Review Widget Component
 const TripAdvisorWriteReviewWidget = () => {
   useEffect(() => {
-    // Remove existing script if any
     const existingScript = document.querySelector('script[src*="cdswritereviewlgvi"]');
     if (existingScript) {
       existingScript.remove();
     }
 
-    // Create and add the widget script
     const script = document.createElement('script');
     script.src = "https://www.jscache.com/wejs?wtype=cdswritereviewlgvi&uniq=505&locationId=34193720&lang=en_US&lang=en_US&display_version=2";
     script.async = true;
@@ -216,10 +259,15 @@ const Reviews = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
-      {/* Hero Section - Fixed padding for navigation */}
+      <Seo
+        title="Insi Tours | Reviews"
+        description="Read authentic reviews from our satisfied customers about their experiences with Insi Tours Tour Guides. Discover what makes our Sri Lankan tours special."
+        path="/reviews"
+      />
+
+      {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-500 to-primary-600 text-white px-4 pt-[140px] sm:pt-[160px] lg:pt-[180px] pb-12 sm:pb-16">
         <div className="max-w-6xl mx-auto">
-          
           <div className="text-center mb-8 sm:mb-12">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 sm:mb-4">Customer Reviews</h1>
             <p className="text-sm sm:text-base md:text-lg text-white/90 max-w-2xl mx-auto px-2">
