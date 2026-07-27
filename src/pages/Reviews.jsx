@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { Star, ExternalLink, MapPin, Calendar, Users, ThumbsUp, MessageSquare, Award, ShieldCheck, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import Seo from "../components/common/Seo";
+
+<Seo
+  title="Insi Tours | Reviews"
+  description="Read authentic reviews from our satisfied customers about their experiences with Insi Tours Tour Guides. Discover what makes our Sri Lankan tours special."
+  path="/reviews"
+/>
 
 // Mock Reviews Data
 const getMockReviews = () => {

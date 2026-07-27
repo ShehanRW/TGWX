@@ -4,6 +4,13 @@ import {
   MapPin, Clock, Star, Compass, Car, Leaf, CheckCircle,
   Mail, MessageCircle,
 } from "lucide-react";
+import Seo from "../components/common/Seo";
+
+<Seo
+  title="Insi Tours | About Us"
+  description="Learn about Insi Tours, a local Sri Lankan tour company offering private tours with experienced driver-guides. Discover our story, values, and why travelers choose us for their Sri Lanka adventures."
+  path="/about-us"
+/>
 
 const STATS = [
   { icon: <Users size={22} strokeWidth={2} />, value: "10,000+", label: "Happy Travelers" },

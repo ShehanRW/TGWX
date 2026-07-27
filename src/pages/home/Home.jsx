@@ -8,6 +8,12 @@ import ReviewsSection from "./sections/ReviewsSection";
 import FooterSection from "../../components/layouts/Footer";
 import GuideSection from "./sections/GuideSection";
 
+<Seo
+  title="Insi Tours | Home"
+  description="Expertly crafted private tours and sri lanka tour guides across Sri Lanka — Cultural Triangle, hill country, wildlife safaris, and beaches. Private driver-guide, flexible itineraries."
+  path="/"
+/>
+
 const Home = () => {
   useScrollAnimation();
 

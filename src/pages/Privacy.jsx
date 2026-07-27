@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ArrowLeft, Mail, ExternalLink, Shield } from "lucide-react";
+import Seo from "../components/common/Seo";
+
+<Seo
+  title="Insi Tours | Privacy Policy"
+  description="Learn how we collect, use, and protect your personal information in accordance with our privacy policy."
+  path="/privacypolicy"
+/>
 
 const SECTIONS = [
   { id: "interpretation", label: "Interpretation & Definitions" },

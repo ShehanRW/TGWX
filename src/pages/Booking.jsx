@@ -9,6 +9,13 @@ import {
 } from "lucide-react";
 import ITINERARIES from "../data/tours.json";
 import TourDetailModal from "../components/modals/TourDetailModal";
+import Seo from "../components/common/Seo";
+
+<Seo
+  title="Insi Tours | Book a Private Tour"
+  description="Book your private Sri Lanka tour with Insi Tours. Choose from our curated itineraries, select your vehicle, and provide your details to secure your adventure. Enjoy a personalized experience with our expert driver-guides."
+  path="/booking"
+/>
 
 /* ─────────────────────────────────────────────
    ★  EMAILJS CREDENTIALS  ★

@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ArrowLeft, Mail, ExternalLink, FileText } from "lucide-react";
+import Seo from "../components/common/Seo";
+
+<Seo
+  title="Insi Tours | Terms Of Services"
+  description=""
+  path="/terms"
+/>
 
 const SECTIONS = [
   { id: "acknowledgment", label: "Acknowledgment" },

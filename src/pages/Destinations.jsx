@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { Tag, Star } from "lucide-react";
 import destinationsData from "../data/destinations.json";
 import DestinationModal from "../components/modals/DestinationModal";
+import Seo from "../components/common/Seo";
+
+<Seo
+  title="Insi Tours | Popular Destinations in Sri Lanka"
+  description="Discover the most popular destinations in Sri Lanka with Insi Tours. Explore pristine beaches, cultural heritage sites, and breathtaking landscapes for your next adventure."
+  path="/destinations"
+/>
 
 const Stars = ({ rating, size = 14 }) => {
   if (!rating) return null;

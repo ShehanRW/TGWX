@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ArrowLeft, Mail, ExternalLink, Cookie } from "lucide-react";
+import Seo from "../components/common/Seo";
+
+<Seo
+  title="Insi Tours | Cookies Policy"
+  description="Learn about the cookies we use on our website and how they enhance your browsing experience."
+  path="/cookies"
+/>
 
 const SECTIONS = [
   { id: "interpretation", label: "Interpretation & Definitions" },

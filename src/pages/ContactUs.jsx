@@ -5,6 +5,13 @@ import {
   CheckCircle, Award, Shield, Globe, Smartphone, 
   Users, Star
 } from "lucide-react";
+import Seo from "../components/common/Seo";
+
+<Seo
+  title="Insi Tours | Contact Us"
+  description="Have questions about your Sri Lanka adventure? Contact Insi Tours for personalized assistance with your travel plans."
+  path="/contact"
+/>
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({

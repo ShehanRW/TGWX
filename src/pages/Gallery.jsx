@@ -4,6 +4,13 @@ import {
   ArrowLeft, X, ChevronLeft, ChevronRight, Play,
   Camera, Video, Quote, MapPin,
 } from "lucide-react";
+import Seo from "../components/common/Seo";
+
+<Seo
+  title="Insi Tours | Gallery"
+  description="Browse our gallery of stunning photos and videos from our Sri Lankan tours. See the beauty of the country through our travelers' eyes."
+  path="/gallery"
+/>
 
 /* ─────────────────────────────────────────────
    IMAGE PATHS

@@ -1,4 +1,3 @@
-// Tours.jsx
 import { useState } from "react";
 import {
   Search, Star, Calendar, Users, Heart, Check, MapPin,
@@ -8,6 +7,14 @@ import {
 } from "lucide-react";
 import TOURS_DATA from "../data/tours.json";
 import TourDetailModal from "../components/modals/TourDetailModal";
+import Seo from "../components/common/Seo";
+
+<Seo
+  title="Private Sri Lanka Tours & Itineraries"
+  description="Expertly crafted private tours across Sri Lanka — Cultural Triangle, hill country, wildlife safaris, and beaches. Private driver-guide, flexible itineraries."
+  path="/tours"
+/>
+
 
 /* ─────────────────────────────────────────────
    DATA - Imported from tours.json
